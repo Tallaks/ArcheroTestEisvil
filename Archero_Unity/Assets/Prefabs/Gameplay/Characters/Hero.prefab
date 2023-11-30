@@ -206,7 +206,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5005431103988977328}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -222,6 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5005431104585758029}
   - component: {fileID: 5005431104585758028}
+  - component: {fileID: 6972039410357651580}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -258,6 +259,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e245da1ec6d4911819c1053f197e6c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Movement>k__BackingField: {fileID: 7071288228979749926}
+--- !u!143 &6972039410357651580
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005431104585758030}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &5005431104806891480
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,6 +370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5005431104960630100}
+  - component: {fileID: 7071288228979749926}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -375,3 +396,17 @@ Transform:
   m_Father: {fileID: 5005431104585758029}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7071288228979749926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5005431104960630101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f70c4e4698934d1889caaa85d0ddc0ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 4
+  _characterController: {fileID: 6972039410357651580}
