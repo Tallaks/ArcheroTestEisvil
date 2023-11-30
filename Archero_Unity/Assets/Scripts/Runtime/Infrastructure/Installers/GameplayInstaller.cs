@@ -1,6 +1,8 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes;
+using Tallaks.ArcheroTest.Runtime.UI.Gameplay;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,14 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
   public class GameplayInstaller : MonoInstaller, IInitializable
   {
     [SerializeField] private LevelProperties _firstLevelProperties;
+    [SerializeField] private GameplayUi _gameplayUi;
+    private IInputService _inputService;
+
+    [Inject]
+    private void Construct(IInputService inputService)
+    {
+      _inputService = inputService;
+    }
 
 #if UNITY_EDITOR
     private void Awake()
@@ -21,6 +31,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     public async void Initialize()
     {
       await Container.Resolve<IAsyncLevelLoader>().LoadLevel(_firstLevelProperties);
+      _gameplayUi.Initialize(_inputService);
     }
 
     public override void InstallBindings()

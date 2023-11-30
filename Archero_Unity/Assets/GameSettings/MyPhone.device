@@ -1,0 +1,40 @@
+{
+    "friendlyName": "Samsung SM-A226B",
+    "version": 1,
+    "screens": [
+        {
+            "width": 720,
+            "height": 1600,
+            "dpi": 562.0
+        }
+    ],
+    "systemInfo": {
+        "deviceModel": "samsung SM-A226B",
+        "deviceType": 1,
+        "operatingSystem": "Android 11",
+        "operatingSystemFamily": 2,
+		"processorCount" : 8,
+		"processorFrequency" : 2203,
+		"processorType" : "ARM64 FP ASIMD AES",
+		"supportsAccelerometer" : true,
+		"supportsAudio" : true,
+		"supportsGyroscope" : true,
+		"supportsLocationService" : true,
+		"supportsVibration" : true,
+		"systemMemorySize" : 3631,
+		"graphicsDependentData": [
+		    {
+		        "graphicsDeviceType": 21,
+		        "graphicsDeviceName": "Mali-G57",
+		        "graphicsDeviceVendor": "ARM",
+		        "graphicsDeviceID": -1869414384,
+		        "graphicsDeviceVendorID": 5045,
+		        "graphicsMemorySize": 3594,
+		        "graphicsMultiThreaded": true,
+		        "graphicsUVStartsAtTop": true
+		        
+		        
+		    }
+		]
+    }
+}
