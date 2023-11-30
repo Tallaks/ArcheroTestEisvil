@@ -28,7 +28,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       Container
         .BindInterfacesTo<GameplayInstaller>()
         .FromInstance(this)
-        .AsSingle();
+        .AsTransient();
 
       Container
         .Bind<IAsyncLevelLoader>()
