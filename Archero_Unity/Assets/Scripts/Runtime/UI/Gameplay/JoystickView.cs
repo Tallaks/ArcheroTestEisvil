@@ -33,7 +33,7 @@ namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay
     private void OnMovementEnded()
     {
       transform.position = _defaultPosition;
-      if(_coroutine != null)
+      if (_coroutine != null)
         StopCoroutine(_coroutine);
       _pointer.anchoredPosition = Vector2.zero;
     }

@@ -23,6 +23,9 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     {
       Debug.Log("Level initialized");
       Container.Resolve<HeroFactory>().Create(_heroSpawnPoint, _charactersParent);
+      EnemySpawnPoint[] enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
+      foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
+        Container.Resolve<EnemyFactory>().Create(enemySpawnPoint, _charactersParent);
     }
 
     public override void InstallBindings()
@@ -34,6 +37,10 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 
       Container
         .Bind<HeroFactory>()
+        .AsSingle();
+
+      Container
+        .Bind<EnemyFactory>()
         .AsSingle();
     }
   }

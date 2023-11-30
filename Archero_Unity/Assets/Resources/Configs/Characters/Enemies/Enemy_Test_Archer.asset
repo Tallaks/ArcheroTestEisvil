@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14adc1421c54954a0eaf1c8d2b22eea, type: 3}
+  m_Name: Enemy_Test_Archer
+  m_EditorClassIdentifier: 
+  Id: b76d85b677b01e6409c806a846be1538
+  Name: Enemy_Test_Archer
+  Prefab: {fileID: 6405528257997436613, guid: 02fb5b267db575a44871d6f434ee780d, type: 3}
