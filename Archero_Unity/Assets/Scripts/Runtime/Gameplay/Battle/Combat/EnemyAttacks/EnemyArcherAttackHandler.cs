@@ -14,7 +14,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     public override void Attack(Vector3 heroPosition)
     {
-      Debug.Log("Enemy archer attacks hero");
     }
   }
 }

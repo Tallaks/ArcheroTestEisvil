@@ -16,7 +16,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Aiming
       _owner = owner;
     }
 
-    public override void DrawAimingLine(Vector3 heroPosition)
+    public override void DrawAimingLine(Vector3 heroPosition, bool ignoreObstacles = false)
     {
       _lineRenderer.positionCount = 2;
       _lineRenderer.SetPosition(0, _owner.Position.WithY(PhysicsConstants.LineRenderingYLevel));

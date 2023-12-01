@@ -508,6 +508,12 @@ MonoBehaviour:
         asm: Runtime}
       data:
         Name: Wait
+    - rid: 1667696384610926613
+      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Finished waiting for attack
+        Timer: {fileID: 3391771030767973518}
     - rid: 7267942979104145426
       type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
         asm: Runtime}
@@ -516,6 +522,7 @@ MonoBehaviour:
         ChildNodes:
         - rid: 7267942979104145427
         - rid: 7267942979104145428
+        - rid: 1667696384610926613
         - rid: 7267942979104145449
         - rid: 7267942979104145452
     - rid: 7267942979104145427
@@ -552,8 +559,8 @@ MonoBehaviour:
         Name: Move or wait if hero is visible
         ChildNodes:
         - rid: 1667696384610926593
-        - rid: 7267942979104145435
         - rid: 7267942979104145440
+        - rid: 7267942979104145435
         - rid: 7267942979104145441
     - rid: 7267942979104145435
       type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
@@ -712,7 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AimingDrawer>k__BackingField: {fileID: 8839355359244117605}
-  <AimDurationSec>k__BackingField: 0.5
+  <AimDurationSec>k__BackingField: 1
 --- !u!114 &8839355359244117605
 MonoBehaviour:
   m_ObjectHideFlags: 0
