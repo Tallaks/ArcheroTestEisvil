@@ -14,8 +14,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
       _visibilityService = initializationParams.VisibilityService;
     }
 
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
+      base.GetResult(deltaTime, debug);
       return _visibilityService.HeroIsVisibleByEnemy(Owner, Hero);
     }
   }

@@ -12,6 +12,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers
     public bool IsTimeOut => _currentTime >= Duration;
 
     private float _currentTime;
+    private bool _isInitialized;
 
     public void Reset()
     {
@@ -21,6 +22,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers
 
     public void Initialize(TimerInitializationParams initializationParams)
     {
+      if (_isInitialized)
+        return;
+
+      _isInitialized = true;
+      IsRunning = false;
       Duration = initializationParams.Duration;
     }
 
@@ -28,6 +34,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers
     {
       if (IsRunning)
         Debug.LogError($"Timer {Name} is already running");
+      _currentTime = 0;
       IsRunning = true;
     }
 

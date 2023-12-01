@@ -14,8 +14,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
       _movement = initializationParams.Owner.Movement;
     }
 
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
+      base.GetResult(deltaTime, debug);
       _movement.MoveTo(Hero.Position);
       return true;
     }

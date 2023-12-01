@@ -8,11 +8,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     [field: SerializeField] public float MaxDistanceMovedByState { get; private set; }
     [field: SerializeField] public float Speed { get; private set; }
     public Vector3 DeltaPosition { get; protected set; }
-    private EnemyBehaviour _enemyBehaviour;
+    protected EnemyBehaviour Owner;
 
     public virtual void Initialize(EnemyBehaviour enemyBehaviour)
     {
-      _enemyBehaviour = enemyBehaviour;
+      Owner = enemyBehaviour;
     }
 
     public abstract void MoveTo(Vector3 position);
@@ -20,7 +20,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 
     public Vector3 GetPosition()
     {
-      return _enemyBehaviour.Position;
+      return Owner.Position;
     }
   }
 }

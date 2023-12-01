@@ -1,5 +1,5 @@
 using System;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero
@@ -18,8 +18,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
       base.Initialize(initializationParams);
     }
 
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
+      base.GetResult(deltaTime, debug);
       _aimedAttackHandler.AimingDrawer.DrawAimingLine(Hero.Position);
       return true;
     }

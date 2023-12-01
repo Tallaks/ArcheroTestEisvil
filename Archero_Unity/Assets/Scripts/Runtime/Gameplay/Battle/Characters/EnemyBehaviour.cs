@@ -1,18 +1,22 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
 {
-  public class EnemyBehaviour : MonoBehaviour
+  public class EnemyBehaviour : DamageableBehaviour
   {
     [field: SerializeField] public EnemyMovementBehaviourBase Movement { get; private set; }
     [field: SerializeField] public EnemyBrainBehaviourBase Brain { get; private set; }
     [field: SerializeField] public EnemyAttackHandlerBase AttackHandler { get; private set; }
 
-    public Vector3 Position => transform.position;
+    public Vector3 Position
+    {
+      get => transform.position;
+      set => transform.position = value;
+    }
 
     private void Update()
     {
@@ -22,8 +26,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService)
     {
       characterRegistry.RegisterEnemy(this);
-      Brain.Initialize(this, characterRegistry, visibilityService);
+      Movement.Initialize(this);
       AttackHandler.Initialize(this);
+      Brain.Initialize(this, characterRegistry, visibilityService);
     }
   }
 }

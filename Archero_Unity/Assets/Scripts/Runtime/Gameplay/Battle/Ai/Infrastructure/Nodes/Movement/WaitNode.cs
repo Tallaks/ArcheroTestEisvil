@@ -5,8 +5,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Mo
   [Serializable]
   public class WaitNode : MovementNodeBase
   {
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
+      base.GetResult(deltaTime, debug);
       Movement.Stop();
       return true;
     }

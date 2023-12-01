@@ -18,7 +18,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories
     public override HeroBehaviour Create(HeroSpawnPoint spawnPoint, Transform parent = null)
     {
       HeroBehaviour hero = base.Create(spawnPoint, parent);
-      hero.Initialize(_inputService, _characterRegistry);
+      hero.Initialize(spawnPoint.Config, _inputService, _characterRegistry);
       return hero;
     }
 

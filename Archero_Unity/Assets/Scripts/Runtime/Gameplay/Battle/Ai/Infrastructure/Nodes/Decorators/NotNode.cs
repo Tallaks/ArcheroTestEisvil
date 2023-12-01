@@ -5,9 +5,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.De
   [Serializable]
   public class NotNode : DecoratorNodeBase
   {
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
-      return ChildNode.GetResult(deltaTime) == false;
+      base.GetResult(deltaTime, debug);
+      return ChildNode.GetResult(deltaTime, debug) == false;
     }
   }
 }

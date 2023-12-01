@@ -1,7 +1,7 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using UnityEngine;
 
-namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat
+namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 {
   public abstract class EnemyAttackHandlerBase : MonoBehaviour
   {

@@ -12,6 +12,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
     public string Id;
     public string Name;
     public HeroBehaviour Prefab;
+    public int MaxHealth;
 
 #if UNITY_EDITOR
     private void OnValidate()

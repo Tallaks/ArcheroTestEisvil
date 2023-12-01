@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8218540260733158080}
   - component: {fileID: 7852772547902696991}
   - component: {fileID: 5320863555783467982}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 136060857086847148}
   - component: {fileID: 8213009548482371200}
   - component: {fileID: 1784087390918228987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,8 +177,7 @@ GameObject:
   - component: {fileID: 6405528257166670160}
   - component: {fileID: 6405528257166670161}
   - component: {fileID: 5906173643616199939}
-  - component: {fileID: 2953875096013080760}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,31 +232,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2248b7fa8ee4f67b20a2b68dc7acfd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxDistanceMovedByState>k__BackingField: 5
+  <MaxDistanceMovedByState>k__BackingField: 4
   <Speed>k__BackingField: 2
-  _navMeshAgent: {fileID: 2953875096013080760}
---- !u!195 &2953875096013080760
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6405528257166670163}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  _navMeshAgent: {fileID: 2088338315322520158}
 --- !u!1 &6405528257950334889
 GameObject:
   m_ObjectHideFlags: 0
@@ -267,7 +244,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6405528257950334886}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +276,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6405528257997436612}
   - component: {fileID: 6405528257997436613}
-  m_Layer: 0
+  - component: {fileID: 2088338315322520158}
+  m_Layer: 7
   m_Name: Enemy_Test_Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,6 +318,28 @@ MonoBehaviour:
   <Movement>k__BackingField: {fileID: 5906173643616199939}
   <Brain>k__BackingField: {fileID: 1234144595559742477}
   <AttackHandler>k__BackingField: {fileID: 7564391925371160444}
+--- !u!195 &2088338315322520158
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405528257997436615}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6405528258264847023
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 6405528258264847020}
   - component: {fileID: 6405528258264847019}
   - component: {fileID: 6405528258264847018}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   - component: {fileID: 4514209157354798590}
   - component: {fileID: 1234144595559742477}
   - component: {fileID: 2673065998231764074}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BehaviourTreeAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -490,6 +490,24 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 1667696384610926593
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: Returns true if is not timeout
+        ChildNode:
+          rid: 1667696384610926594
+    - rid: 1667696384610926594
+      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Returns true if is timeout
+        Timer: {fileID: 3391771030767973518}
+    - rid: 1667696384610926595
+      type: {class: WaitNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement,
+        asm: Runtime}
+      data:
+        Name: Wait
     - rid: 7267942979104145426
       type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
         asm: Runtime}
@@ -498,7 +516,8 @@ MonoBehaviour:
         ChildNodes:
         - rid: 7267942979104145427
         - rid: 7267942979104145428
-        - rid: 7267942979104145429
+        - rid: 7267942979104145449
+        - rid: 7267942979104145452
     - rid: 7267942979104145427
       type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
         asm: Runtime}
@@ -514,13 +533,6 @@ MonoBehaviour:
         Name: Move or wait if hero is visible
         ChildNode:
           rid: 7267942979104145433
-    - rid: 7267942979104145429
-      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
-        asm: Runtime}
-      data:
-        Name: Wait or attack
-        ChildNode:
-          rid: 7267942979104145442
     - rid: 7267942979104145430
       type: {class: TimerIsRunningNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
         asm: Runtime}
@@ -539,17 +551,10 @@ MonoBehaviour:
       data:
         Name: Move or wait if hero is visible
         ChildNodes:
-        - rid: 7267942979104145434
+        - rid: 1667696384610926593
         - rid: 7267942979104145435
         - rid: 7267942979104145440
         - rid: 7267942979104145441
-    - rid: 7267942979104145434
-      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
-        asm: Runtime}
-      data:
-        Name: Hero not moved enough
-        ChildNode:
-          rid: 7267942979104145438
     - rid: 7267942979104145435
       type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
         asm: Runtime}
@@ -557,12 +562,6 @@ MonoBehaviour:
         Name: Hero is not visible
         ChildNode:
           rid: 7267942979104145439
-    - rid: 7267942979104145438
-      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
-        asm: Runtime}
-      data:
-        Name: If wait timer is out, then it already moved max distance
-        Timer: {fileID: 3391771030767973518}
     - rid: 7267942979104145439
       type: {class: HeroIsVisibleNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero,
         asm: Runtime}
@@ -579,55 +578,6 @@ MonoBehaviour:
         asm: Runtime}
       data:
         Name: Move towards hero
-    - rid: 7267942979104145442
-      type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
-        asm: Runtime}
-      data:
-        Name: Wait or attack
-        ChildNodes:
-        - rid: 7267942979104145443
-        - rid: 7267942979104145446
-        - rid: 7267942979104145447
-    - rid: 7267942979104145443
-      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
-        asm: Runtime}
-      data:
-        Name: Check wait timer
-        ChildNodes:
-        - rid: 7267942979104145444
-        - rid: 7267942979104145445
-    - rid: 7267942979104145444
-      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
-        asm: Runtime}
-      data:
-        Name: Check wait timer
-        Timer: {fileID: 3391771030767973518}
-    - rid: 7267942979104145445
-      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
-        asm: Runtime}
-      data:
-        Name: Aim and shoot
-        ChildNode:
-          rid: 7267942979104145448
-    - rid: 7267942979104145446
-      type: {class: UpdateTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
-        asm: Runtime}
-      data:
-        Name: Update wait timer
-        Timer: {fileID: 3391771030767973518}
-    - rid: 7267942979104145447
-      type: {class: WaitNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement,
-        asm: Runtime}
-      data:
-        Name: Wait
-    - rid: 7267942979104145448
-      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
-        asm: Runtime}
-      data:
-        Name: Aim and shoot
-        ChildNodes:
-        - rid: 7267942979104145449
-        - rid: 7267942979104145452
     - rid: 7267942979104145449
       type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
         asm: Runtime}
@@ -673,6 +623,7 @@ MonoBehaviour:
       data:
         Name: Update aim timer and aim
         ChildNodes:
+        - rid: 1667696384610926595
         - rid: 7267942979104145459
         - rid: 7267942979104145460
     - rid: 7267942979104145455
@@ -726,7 +677,7 @@ GameObject:
   - component: {fileID: 7564391925371160444}
   - component: {fileID: 8839355359244117605}
   - component: {fileID: 8732264674409249058}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -761,6 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <AimingDrawer>k__BackingField: {fileID: 8839355359244117605}
+  <AimDurationSec>k__BackingField: 0.5
 --- !u!114 &8839355359244117605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +890,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: AimTimer
       objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
         type: 3}
       propertyPath: Name
@@ -1034,6 +991,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WaitForAttackTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
         type: 3}

@@ -4,6 +4,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decora
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using UnityEngine;
 
@@ -23,6 +24,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure
           {
             Duration = enemyBehaviour.AttackHandler.Cooldown
           }
+        });
+
+      if (enemyBehaviour.AttackHandler is EnemyAimedAttackHandler attackHandler)
+        initializationParameters.TimersInitializationParams.Add(TimerTypes.Aim, new TimerInitializationParams
+        {
+          Duration = attackHandler.AimDurationSec
         });
       RootNode.Initialize(initializationParameters);
     }

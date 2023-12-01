@@ -5,8 +5,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Ti
   [Serializable]
   public class TimerIsRunningNode : TimerNodeBase
   {
-    public override bool GetResult(float deltaTime)
+    public override bool GetResult(float deltaTime, bool debug = false)
     {
+      base.GetResult(deltaTime, debug);
       return Timer.IsRunning;
     }
   }
