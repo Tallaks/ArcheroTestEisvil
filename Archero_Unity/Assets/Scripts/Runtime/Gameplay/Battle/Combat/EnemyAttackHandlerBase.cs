@@ -7,5 +7,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat
   {
     public float Cooldown { get; protected set; }
     public abstract void Initialize(EnemyBehaviour owner);
+    public abstract void Attack(Vector3 heroPosition);
   }
 }

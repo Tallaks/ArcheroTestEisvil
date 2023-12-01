@@ -8,8 +8,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
   {
     [field: SerializeField] public HeroMovementBehaviour Movement { get; private set; }
 
-    public void Initialize(IInputService inputService)
+    public Vector3 Position => transform.position;
+
+    public void Initialize(IInputService inputService, ICharacterRegistry characterRegistry)
     {
+      characterRegistry.RegisterHero(this);
       Movement.Initialize(inputService);
     }
   }

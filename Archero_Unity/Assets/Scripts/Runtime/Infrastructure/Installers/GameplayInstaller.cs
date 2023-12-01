@@ -1,5 +1,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes;
 using Tallaks.ArcheroTest.Runtime.UI.Gameplay;
@@ -44,6 +46,16 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       Container
         .Bind<IAsyncLevelLoader>()
         .To<AsyncLevelLoader>()
+        .AsSingle();
+
+      Container
+        .Bind<ICharacterRegistry>()
+        .To<CharacterRegistry>()
+        .AsSingle();
+
+      Container
+        .Bind<IVisibilityService>()
+        .To<VisibilityService>()
         .AsSingle();
     }
   }

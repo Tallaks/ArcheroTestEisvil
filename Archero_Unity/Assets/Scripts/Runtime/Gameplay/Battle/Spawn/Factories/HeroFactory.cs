@@ -7,14 +7,18 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories
   public class HeroFactory : SpawnPointFactory<HeroSpawnPoint, HeroBehaviour>
   {
     private readonly IInputService _inputService;
+    private readonly ICharacterRegistry _characterRegistry;
 
-    public HeroFactory(IInputService inputService) =>
+    public HeroFactory(IInputService inputService, ICharacterRegistry characterRegistry)
+    {
       _inputService = inputService;
+      _characterRegistry = characterRegistry;
+    }
 
     public override HeroBehaviour Create(HeroSpawnPoint spawnPoint, Transform parent = null)
     {
       HeroBehaviour hero = base.Create(spawnPoint, parent);
-      hero.Initialize(_inputService);
+      hero.Initialize(_inputService, _characterRegistry);
       return hero;
     }
 

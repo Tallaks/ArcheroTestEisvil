@@ -9,7 +9,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers
     public TimerTypes Type;
     public float Duration { get; private set; }
     public bool IsRunning { get; private set; }
+    public bool IsTimeOut => _currentTime >= Duration;
+
     private float _currentTime;
+
+    public void Reset()
+    {
+      IsRunning = false;
+      _currentTime = 0;
+    }
 
     public void Initialize(TimerInitializationParams initializationParams)
     {

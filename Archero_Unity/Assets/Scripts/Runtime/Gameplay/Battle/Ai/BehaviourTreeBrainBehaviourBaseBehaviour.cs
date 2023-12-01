@@ -1,5 +1,6 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai
@@ -8,9 +9,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai
   {
     [field: SerializeField] private BehaviourTree BehaviourTree { get; set; }
 
-    public override void Initialize(EnemyBehaviour owner)
+    public override void Initialize(EnemyBehaviour owner, ICharacterRegistry characterRegistry,
+      IVisibilityService visibilityService)
     {
-      BehaviourTree.Initialize(owner);
+      BehaviourTree.Initialize(owner, characterRegistry, visibilityService);
     }
 
     public override void UpdateBehaviour(float deltaTime)
