@@ -8,6 +8,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories
     public override EnemyBehaviour Create(EnemySpawnPoint spawnPoint, Transform parent = null)
     {
       EnemyBehaviour result = base.Create(spawnPoint, parent);
+      result.Initialize();
       return result;
     }
 

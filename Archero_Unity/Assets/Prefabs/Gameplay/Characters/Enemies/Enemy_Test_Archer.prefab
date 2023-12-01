@@ -176,6 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6405528257166670160}
   - component: {fileID: 6405528257166670161}
+  - component: {fileID: 5906173643616199939}
+  - component: {fileID: 2953875096013080760}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -219,6 +221,43 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &5906173643616199939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405528257166670163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2248b7fa8ee4f67b20a2b68dc7acfd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxDistanceMovedByState>k__BackingField: 5
+  <Speed>k__BackingField: 2
+  _navMeshAgent: {fileID: 2953875096013080760}
+--- !u!195 &2953875096013080760
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6405528257166670163}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &6405528257950334889
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,6 +320,8 @@ Transform:
   m_Children:
   - {fileID: 6405528257166670160}
   - {fileID: 6405528257950334886}
+  - {fileID: 770000140385238865}
+  - {fileID: 4514209157354798590}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -296,6 +337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed01c53c6eb74378af2d0b426d543f9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Movement>k__BackingField: {fileID: 5906173643616199939}
+  <Brain>k__BackingField: {fileID: 1234144595559742477}
+  <AttackHandler>k__BackingField: {fileID: 7564391925371160444}
 --- !u!1 &6405528258264847023
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,3 +423,278 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7580596323976547720
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4514209157354798590}
+  - component: {fileID: 1234144595559742477}
+  - component: {fileID: 2673065998231764074}
+  m_Layer: 0
+  m_Name: AI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4514209157354798590
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580596323976547720}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8181128292679394876}
+  m_Father: {fileID: 6405528257997436612}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1234144595559742477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580596323976547720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabbb550ff0d44f4b6d1ddf9bccece80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BehaviourTree>k__BackingField: {fileID: 2673065998231764074}
+--- !u!114 &2673065998231764074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580596323976547720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7298633a76447ebb6266496bc7cc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootNode:
+    Name: Root
+    ChildNode:
+      rid: 7267942979104145426
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7267942979104145426
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Main
+        ChildNodes:
+        - rid: 7267942979104145427
+        - rid: 7267942979104145428
+        - rid: 7267942979104145429
+    - rid: 7267942979104145427
+      type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Start wait for attack timer
+        ChildNodes:
+        - rid: 7267942979104145430
+        - rid: 7267942979104145432
+    - rid: 7267942979104145428
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: Move or wait if hero is visible
+        ChildNode:
+          rid: 7267942979104145433
+    - rid: 7267942979104145429
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: 
+        ChildNode:
+          rid: -2
+    - rid: 7267942979104145430
+      type: {class: TimerIsRunningNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Check if already running
+        Timer: {fileID: 3391771030767973518}
+    - rid: 7267942979104145432
+      type: {class: StartTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Start if not
+        Timer: {fileID: 3391771030767973518}
+    - rid: 7267942979104145433
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Move or wait if hero is visible
+        ChildNodes:
+        - rid: 7267942979104145434
+        - rid: 7267942979104145435
+        - rid: -2
+    - rid: 7267942979104145434
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: 
+        ChildNode:
+          rid: -2
+    - rid: 7267942979104145435
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: 
+        ChildNode:
+          rid: -2
+--- !u!1 &8850508871484162295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 770000140385238865}
+  - component: {fileID: 7564391925371160444}
+  m_Layer: 0
+  m_Name: AttackHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &770000140385238865
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850508871484162295}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6405528257997436612}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7564391925371160444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8850508871484162295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d27c904f95984b9ca8bcfa8ed0d06276, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &7697645477309590670
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4514209157354798590}
+    m_Modifications:
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Name
+      value: WaitForAttackTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Name
+      value: WaitForAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Type
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e061a79d24885bb489ad931a68c1340d, type: 3}
+--- !u!114 &3391771030767973518 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7697645477309590670}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c658f6cacc914da7993695b45ac4282c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &8181128292679394876 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 7697645477309590670}
+  m_PrefabAsset: {fileID: 0}
