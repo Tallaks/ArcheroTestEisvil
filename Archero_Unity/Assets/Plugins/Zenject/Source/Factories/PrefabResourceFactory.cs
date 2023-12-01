@@ -16,13 +16,13 @@ namespace Zenject
 
     public DiContainer Container => _container;
 
-    public virtual T Create(string prefabResourceName)
+    public virtual T Create(string param)
     {
-      Assert.That(!string.IsNullOrEmpty(prefabResourceName),
+      Assert.That(!string.IsNullOrEmpty(param),
         "Null or empty prefab resource name given to factory create method when instantiating object with type '{0}'.",
         typeof(T));
 
-      var prefab = (GameObject)Resources.Load(prefabResourceName);
+      var prefab = (GameObject)Resources.Load(param);
       return _container.InstantiatePrefabForComponent<T>(prefab);
     }
 

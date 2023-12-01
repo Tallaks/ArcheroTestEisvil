@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Projectiles
+  m_EditorClassIdentifier: 
+  m_GroupName: Projectiles
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 339a5c454598aa44c98e2dbb0e0f6b83
+  m_SerializeEntries:
+  - m_GUID: f0a3d558986904e45a6b9fb7c7241da7
+    m_Address: Arrow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Hero
+    - Projectile
+    - Gameplay
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 56ffb237c72da4f4f92ec4014ebd822e, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 1de289e296c7cb547a7925209e363216, type: 2}
+    - {fileID: 11400000, guid: 3bc12ff80fb69a041b667556d1ed29ad, type: 2}

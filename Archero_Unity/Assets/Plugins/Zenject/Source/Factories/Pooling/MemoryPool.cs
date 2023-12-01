@@ -38,9 +38,9 @@ namespace Zenject
   public class MemoryPool<TParam1, TValue>
     : MemoryPoolBase<TValue>, IMemoryPool<TParam1, TValue>, IFactory<TParam1, TValue>
   {
-    TValue IFactory<TParam1, TValue>.Create(TParam1 p1)
+    TValue IFactory<TParam1, TValue>.Create(TParam1 param)
     {
-      return Spawn(p1);
+      return Spawn(param);
     }
 
     public TValue Spawn(TParam1 param)

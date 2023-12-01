@@ -5,7 +5,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
   public class CharacterRegistry : ICharacterRegistry
   {
     private readonly List<EnemyBehaviour> _enemies = new();
+
     public HeroBehaviour Hero { get; private set; }
+    public IEnumerable<EnemyBehaviour> Enemies => _enemies;
 
     public void RegisterHero(HeroBehaviour hero)
     {

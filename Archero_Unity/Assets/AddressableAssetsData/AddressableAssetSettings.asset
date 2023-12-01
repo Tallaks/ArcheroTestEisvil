@@ -43,6 +43,7 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 6050ecc46323ff449b69c6c857c898a9, type: 2}
   - {fileID: 11400000, guid: 8166cd291960c874a88a04f45721514c, type: 2}
+  - {fileID: 11400000, guid: 9cca4432a9f8d294294416b2f24317e4, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -84,6 +85,9 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - Scenes
+    - Hero
+    - Projectile
+    - Gameplay
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 6865ef7d9c9e34e45964c143fc4bd569, type: 2}

@@ -10,16 +10,19 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility
   {
     public bool EnemyIsVisibleByHero(HeroBehaviour hero, EnemyBehaviour enemy)
     {
-      Vector3 direction = enemy.transform.position - hero.transform.position;
+      Vector3 direction = enemy.Position - hero.Position;
       var ray = new Ray(hero.transform.position.WithY(PhysicsConstants.RaycastYLevel), direction);
       int layerMask = PhysicsConstants.EnemiesAndObstaclesLayerMask;
 
-      return Physics.Raycast(ray, out RaycastHit hit, direction.magnitude, layerMask);
+      if (Physics.Raycast(ray, out RaycastHit hit, direction.magnitude, layerMask))
+        return hit.transform.TryGetComponent(out HitBox hitBox) && enemy == hitBox.Owner as EnemyBehaviour;
+
+      return false;
     }
 
     public bool HeroIsVisibleByEnemy(EnemyBehaviour enemy, HeroBehaviour hero, bool ignoreObstacles = false)
     {
-      Vector3 direction = hero.transform.position - enemy.transform.position;
+      Vector3 direction = hero.Position - enemy.Position;
       var ray = new Ray(enemy.transform.position.WithY(PhysicsConstants.RaycastYLevel), direction);
       int layerMask = ignoreObstacles
         ? PhysicsConstants.HeroOnlyLayerMask

@@ -1,4 +1,5 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
@@ -10,14 +11,16 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
   {
     [field: SerializeField] public HeroMovementBehaviour Movement { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
-
+    public float BaseCooldownSec { get; private set; }
     public Vector3 Position => transform.position;
+    public Quaternion Rotation => Movement.Rotation;
+    public bool IsMoving => Movement.IsMoving;
 
-    public void Initialize(HeroConfig config, IInputService inputService, ICharacterRegistry characterRegistry)
+    public void Initialize(HeroConfig config, IInputService inputService, ITargetPicker targetPicker)
     {
-      characterRegistry.RegisterHero(this);
-      Movement.Initialize(inputService);
+      Movement.Initialize(inputService, targetPicker);
       Health = new Health(config.MaxHealth);
+      BaseCooldownSec = config.BaseCooldownSec;
       HitBox.Initialize(this);
     }
   }

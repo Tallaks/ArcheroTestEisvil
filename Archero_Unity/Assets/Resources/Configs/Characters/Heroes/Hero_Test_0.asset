@@ -15,3 +15,8 @@ MonoBehaviour:
   Id: d3c30990d3ba48847acb12fb6ec751e8
   Name: Hero
   Prefab: {fileID: 5005431104585758028, guid: 18de303c4f1257148ac7c84d3f1cb1ec, type: 3}
+  MaxHealth: 100
+  DefaultAttack: 1
+  AttackDirection: 1
+  BaseDamage: 10
+  BaseCooldownSec: 1

@@ -16,12 +16,12 @@ namespace Zenject
 
     public DiContainer Container => _container;
 
-    public virtual T Create(Object prefab)
+    public virtual T Create(Object param)
     {
-      Assert.That(prefab != null,
+      Assert.That(param != null,
         "Null prefab given to factory create method when instantiating object with type '{0}'.", typeof(T));
 
-      return _container.InstantiatePrefabForComponent<T>(prefab);
+      return _container.InstantiatePrefabForComponent<T>(param);
     }
 
     // Note: We can't really validate here without access to the prefab
