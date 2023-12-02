@@ -11,11 +11,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
   public class ArrowAttackHandler : IHeroAttackHandler, ICooldownAttackHandler
   {
     private static ArrowPool _arrowPool;
-    private static ArrowBehaviourBase _arrowPrefab;
+    private static ArrowBehaviour _arrowPrefab;
     private static Transform _arrowContainer;
 
     public float CooldownSec { get; private set; }
     private HeroConfig.DefaultAttackDirection _attackDirection;
+    private IHeroAttackSystem _attackSystem;
     private float _currentTime;
     private HeroBehaviour _owner;
     private ITargetPicker _targetPicker;
@@ -36,14 +37,16 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     }
 
     public void Initialize(HeroConfig.DefaultAttackDirection attackDirection, HeroBehaviour owner,
+      IHeroAttackSystem attackSystem,
       IGameplayPrefabProvider gameplayPrefabProvider, ITargetPicker targetPicker, TransformContainer transformContainer)
     {
+      _attackSystem = attackSystem;
       _targetPicker = targetPicker;
       CooldownSec = owner.BaseCooldownSec;
       _attackDirection = attackDirection;
       _owner = owner;
       _arrowPool ??= new ArrowPool(CreateArrow, GetArrow, ReleaseArrow, DestroyArrow);
-      _arrowPrefab ??= gameplayPrefabProvider.GetHeroProjectilePrefab<ArrowBehaviourBase>();
+      _arrowPrefab ??= gameplayPrefabProvider.GetHeroProjectilePrefab<ArrowBehaviour>();
       if (_arrowContainer is not null)
         return;
       _arrowContainer = new GameObject("ArrowContainer").transform;
@@ -52,7 +55,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     public void Attack(Vector3 targetPosition)
     {
-      ArrowBehaviourBase arrow = _arrowPool.Get();
+      ArrowBehaviour arrow = _arrowPool.Get();
       arrow.ShootAt(targetPosition, _attackDirection);
     }
 
@@ -61,25 +64,25 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       _arrowPool?.Dispose();
     }
 
-    private static void ReleaseArrow(ArrowBehaviourBase arrow)
+    private static void ReleaseArrow(ArrowBehaviour arrow)
     {
       arrow.ReturnToPool();
     }
 
-    private static void GetArrow(ArrowBehaviourBase arrow)
+    private static void GetArrow(ArrowBehaviour arrow)
     {
       arrow.GetFromPool();
     }
 
-    private ArrowBehaviourBase CreateArrow()
+    private ArrowBehaviour CreateArrow()
     {
-      ArrowBehaviourBase arrowBehaviourBase =
+      ArrowBehaviour arrowBehaviour =
         Object.Instantiate(_arrowPrefab, Vector3.down, Quaternion.identity, _arrowContainer);
-      arrowBehaviourBase.Initialize(_owner, _arrowPool);
-      return arrowBehaviourBase;
+      arrowBehaviour.Initialize(_owner, _arrowPool, _attackSystem);
+      return arrowBehaviour;
     }
 
-    private static void DestroyArrow(ArrowBehaviourBase obj)
+    private static void DestroyArrow(ArrowBehaviour obj)
     {
       Object.Destroy(obj.gameObject);
     }

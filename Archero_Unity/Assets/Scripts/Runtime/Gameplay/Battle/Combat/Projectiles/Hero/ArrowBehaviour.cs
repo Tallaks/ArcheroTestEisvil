@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Constants;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
@@ -9,18 +10,22 @@ using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
 {
-  public class ArrowBehaviourBase : HeroProjectileBehaviourBase
+  public class ArrowBehaviour : HeroProjectileBehaviourBase
   {
     [SerializeField] private float _speed;
+
+    private IHeroAttackSystem _attackSystem;
 
     private HeroBehaviour _owner;
     private ArrowPool _pool;
     private Coroutine _shootRoutine;
 
-    public void Initialize(HeroBehaviour owner, ArrowPool pool)
+    public void Initialize(HeroBehaviour owner, ArrowPool pool, IHeroAttackSystem attackSystem)
     {
       _owner = owner;
       _pool = pool;
+      Damage = _owner.BaseDamage;
+      DamageAppliers = attackSystem.DamageAppliers;
     }
 
     public void ShootAt(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)
@@ -38,6 +43,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
     public void GetFromPool()
     {
       transform.position = _owner.transform.position.WithY(PhysicsConstants.ProjectileHeight);
+    }
+
+    public override void PerformHit(Vector3 hitPosition)
+    {
+      _pool.Release(this);
     }
 
     private IEnumerator ShootRoutine(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)

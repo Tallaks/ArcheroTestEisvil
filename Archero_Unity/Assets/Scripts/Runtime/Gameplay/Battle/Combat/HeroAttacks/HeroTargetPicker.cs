@@ -1,6 +1,8 @@
 using System.Linq;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Constants;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
@@ -47,8 +49,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
       if (closestVisibleEnemy != null)
       {
-        _cachedClosestEnemyPosition = closestVisibleEnemy.Position;
-        return closestVisibleEnemy.Position;
+        _cachedClosestEnemyPosition = closestVisibleEnemy.Position.WithY(PhysicsConstants.ProjectileHeight);
+        return _cachedClosestEnemyPosition;
       }
 
       minDistance = float.MaxValue;
@@ -60,7 +62,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
           closestEnemyAll = _allEnemies[i];
         }
 
-      _cachedClosestEnemyPosition = closestEnemyAll != null ? closestEnemyAll.Position : Vector3.zero;
+      _cachedClosestEnemyPosition = closestEnemyAll != null
+        ? closestEnemyAll.Position.WithY(PhysicsConstants.ProjectileHeight)
+        : Vector3.zero;
       return _cachedClosestEnemyPosition;
     }
 

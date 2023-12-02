@@ -10,6 +10,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
   public interface IHeroAttackHandler : IDisposable
   {
     public void Initialize(HeroConfig.DefaultAttackDirection attackDirection, HeroBehaviour owner,
+      IHeroAttackSystem attackSystem,
       IGameplayPrefabProvider gameplayPrefabProvider, ITargetPicker targetPicker,
       TransformContainer transformContainer);
 

@@ -3,6 +3,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
@@ -27,11 +28,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.UpdateBehaviour(Time.deltaTime);
     }
 
-    public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService)
+    public void Initialize(EnemyConfig config, ICharacterRegistry characterRegistry,
+      IVisibilityService visibilityService)
     {
       characterRegistry.RegisterEnemy(this);
       Movement.Initialize(this);
       AttackHandler.Initialize(this);
+      Health = new Health(config.MaxHealth);
+      Health.OnHealthChanged += _ => Debug.Log(Health.Current);
+      Health.OnDead += () => Debug.Log("Enemy died");
       HitBox.Initialize(this);
       Brain.Initialize(this, characterRegistry, visibilityService);
     }

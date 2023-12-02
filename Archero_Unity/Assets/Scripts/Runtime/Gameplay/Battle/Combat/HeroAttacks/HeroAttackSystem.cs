@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
@@ -10,6 +11,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
   {
     private readonly List<IHeroAttackHandler> _allAttackHandlers = new();
     private readonly List<ICooldownAttackHandler> _cooldownAttackHandlers = new();
+    private readonly List<IDamageApplier> _damageAppliers = new();
+
+    public IEnumerable<IDamageApplier> DamageAppliers => _damageAppliers;
+
     private CancellationTokenSource _cancellationTokenSource;
 
     public async UniTaskVoid StartWorking()
@@ -19,6 +24,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
                        .WithCancellation(_cancellationTokenSource.Token))
         for (var i = 0; i < _cooldownAttackHandlers.Count; i++)
           _cooldownAttackHandlers[i].Update(Time.deltaTime);
+    }
+
+    public void AddDamageApplier(IDamageApplier damageApplier)
+    {
+      _damageAppliers.Add(damageApplier);
     }
 
     public void StopWorking()
@@ -41,6 +51,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
         _allAttackHandlers[i].Dispose();
       _allAttackHandlers.Clear();
       _cooldownAttackHandlers.Clear();
+      _damageAppliers.Clear();
     }
   }
 }

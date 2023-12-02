@@ -9,7 +9,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories
     public virtual TObject Create(TSpawnPoint spawnPoint, Transform parent = null)
     {
       TObject result = Object.Instantiate(GetPrefab(spawnPoint), spawnPoint.Position, spawnPoint.Rotation, parent);
-      result.name = spawnPoint.name;
       return result;
     }
 

@@ -12,6 +12,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
     public string Id;
     public string Name;
     public EnemyBehaviour Prefab;
+    public int MaxHealth;
+    public int BaseDamage;
 
 #if UNITY_EDITOR
     private void OnValidate()

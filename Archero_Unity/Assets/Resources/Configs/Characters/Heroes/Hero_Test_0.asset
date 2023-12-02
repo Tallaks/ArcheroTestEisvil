@@ -18,5 +18,6 @@ MonoBehaviour:
   MaxHealth: 100
   DefaultAttack: 1
   AttackDirection: 1
+  DefaultDamageType: 1
   BaseDamage: 10
   BaseCooldownSec: 1

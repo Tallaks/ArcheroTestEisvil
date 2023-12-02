@@ -1,5 +1,7 @@
 using System.Linq;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
@@ -68,6 +70,10 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .AsSingle();
 
       Container
+        .Bind<DamageApplierFactory>()
+        .AsSingle();
+
+      Container
         .Bind<IHeroAttackSystem>()
         .To<HeroAttackSystem>()
         .AsSingle();
@@ -76,11 +82,14 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     private void InitializeHero(HeroBehaviour hero)
     {
       hero.Initialize(_heroSpawnPoint.Config, _inputService, _targetPicker);
-      IHeroAttackHandler heroDefaultAttackDirection =
+      IHeroAttackHandler heroDefaultAttackHandler =
         Container.Resolve<HeroAttackHandlerFactory>().Create(_heroSpawnPoint.Config, hero);
+      IDamageApplier defaultHeroDamageApplier =
+        Container.Resolve<DamageApplierFactory>().Create(_heroSpawnPoint.Config.DefaultDamageType);
 
       var heroAttackSystem = Container.Resolve<IHeroAttackSystem>();
-      heroAttackSystem.AddAttackHandler(heroDefaultAttackDirection);
+      heroAttackSystem.AddAttackHandler(heroDefaultAttackHandler);
+      heroAttackSystem.AddDamageApplier(defaultHeroDamageApplier);
       heroAttackSystem.StartWorking();
     }
   }

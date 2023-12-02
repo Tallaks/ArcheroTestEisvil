@@ -21,12 +21,19 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
       Forward = 1
     }
 
+    public enum DamageType
+    {
+      None = 0,
+      Default = 1
+    }
+
     public string Id;
     public string Name;
     public HeroBehaviour Prefab;
     public int MaxHealth;
     public DefaultAttackType DefaultAttack;
     public DefaultAttackDirection AttackDirection;
+    public DamageType DefaultDamageType;
     public int BaseDamage;
     public float BaseCooldownSec;
 
