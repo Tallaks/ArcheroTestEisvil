@@ -88,6 +88,7 @@ MonoBehaviour:
     - Hero
     - Projectile
     - Gameplay
+    - Enemy
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 6865ef7d9c9e34e45964c143fc4bd569, type: 2}

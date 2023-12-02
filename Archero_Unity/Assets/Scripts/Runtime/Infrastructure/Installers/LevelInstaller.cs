@@ -8,6 +8,8 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using UnityEngine;
 using Zenject;
@@ -20,20 +22,26 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     [SerializeField] private HeroSpawnPoint _heroSpawnPoint;
 
     private ICharacterRegistry _characterRegistry;
-    private IInputService _inputService;
     private ITargetPicker _targetPicker;
+    private IInputService _inputService;
+    private IGameplayPrefabProvider _gameplayPrefabProvider;
     private IVisibilityService _visibilityService;
     private IBattleStarter _battleStarter;
+    private TransformContainer _transformContainer;
 
     [Inject]
     private void Construct(IInputService inputService, ITargetPicker targetPicker, ICharacterRegistry characterRegistry,
-      IVisibilityService visibilityService, IBattleStarter battleStarter)
+      IGameplayPrefabProvider gameplayPrefabProvider, IVisibilityService visibilityService,
+      IBattleStarter battleStarter,
+      TransformContainer transformContainer)
     {
       _inputService = inputService;
       _targetPicker = targetPicker;
       _characterRegistry = characterRegistry;
+      _gameplayPrefabProvider = gameplayPrefabProvider;
       _visibilityService = visibilityService;
       _battleStarter = battleStarter;
+      _transformContainer = transformContainer;
     }
 
 #if UNITY_EDITOR
@@ -61,7 +69,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       _targetPicker.Initialize();
       InitializeHero(hero);
       foreach (EnemyBehaviour enemy in _characterRegistry.Enemies)
-        enemy.Initialize(_characterRegistry, _visibilityService);
+        enemy.Initialize(_characterRegistry, _gameplayPrefabProvider, _visibilityService, _transformContainer);
     }
 
     public override void InstallBindings()

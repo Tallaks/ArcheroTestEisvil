@@ -4,7 +4,9 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
@@ -15,11 +17,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     [field: SerializeField] public EnemyBrainBehaviourBase Brain { get; private set; }
     [field: SerializeField] public EnemyAttackHandlerBase AttackHandler { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
+    public int BaseDamage { get; private set; }
 
     public Vector3 Position
     {
       get => transform.position;
-      set => transform.position = value;
+      private set => transform.position = value;
     }
 
     private ICharacterRegistry _characterRegistry;
@@ -36,12 +39,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.UpdateBehaviour(Time.deltaTime);
     }
 
-    public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService)
+    public void Initialize(ICharacterRegistry characterRegistry, IGameplayPrefabProvider gameplayPrefabProvider,
+      IVisibilityService visibilityService, TransformContainer transformContainer)
     {
       enabled = true;
       _characterRegistry = characterRegistry;
       Movement.Initialize(this);
-      AttackHandler.Initialize(this);
+      AttackHandler.Initialize(this, gameplayPrefabProvider, transformContainer);
       Health.OnDead += Die;
       HitBox.Initialize(this);
       Brain.Initialize(this, characterRegistry, visibilityService);
@@ -73,6 +77,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
 
     public void ApplyProperties(EnemyConfig config)
     {
+      BaseDamage = config.BaseDamage;
       Health = new Health(config.MaxHealth);
     }
   }

@@ -19,10 +19,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
     private IHeroAttackSystem _attackSystem;
 
     private HeroBehaviour _owner;
-    private ArrowPool _pool;
+    private HeroArrowPool _pool;
     private Coroutine _shootRoutine;
 
-    public void Initialize(HeroBehaviour owner, ArrowPool pool, IHeroAttackSystem attackSystem)
+    public void Initialize(HeroBehaviour owner, HeroArrowPool pool, IHeroAttackSystem attackSystem)
     {
       _owner = owner;
       _pool = pool;

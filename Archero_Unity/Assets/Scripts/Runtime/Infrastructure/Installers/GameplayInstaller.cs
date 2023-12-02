@@ -35,9 +35,15 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     }
 #endif
 
-    public async void Initialize()
+    public void Initialize()
+    {
+      InitializeAsync();
+    }
+
+    private async UniTaskVoid InitializeAsync()
     {
       await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectiles();
+      await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectiles();
       await Container.Resolve<IAsyncLevelLoader>().LoadLevel(_firstLevelProperties);
       _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
     }

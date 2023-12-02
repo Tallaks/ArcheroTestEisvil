@@ -10,7 +10,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 {
   public class ArrowAttackHandler : IHeroAttackHandler, ICooldownAttackHandler
   {
-    private static ArrowPool _arrowPool;
+    private static HeroArrowPool _heroArrowPool;
     private static ArrowBehaviour _arrowPrefab;
     private static Transform _arrowContainer;
 
@@ -36,8 +36,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       Attack(_targetPicker.GetClosestTargetPosition(_owner.Position));
     }
 
-    public void Initialize(HeroConfig.DefaultAttackDirection attackDirection, HeroBehaviour owner,
-      IHeroAttackSystem attackSystem,
+    public void Initialize(
+      HeroConfig.DefaultAttackDirection attackDirection, HeroBehaviour owner, IHeroAttackSystem attackSystem,
       IGameplayPrefabProvider gameplayPrefabProvider, ITargetPicker targetPicker, TransformContainer transformContainer)
     {
       _attackSystem = attackSystem;
@@ -45,7 +45,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       CooldownSec = owner.BaseCooldownSec;
       _attackDirection = attackDirection;
       _owner = owner;
-      _arrowPool ??= new ArrowPool(CreateArrow, GetArrow, ReleaseArrow, DestroyArrow);
+      _heroArrowPool ??= new HeroArrowPool(CreateArrow, GetArrow, ReleaseArrow, DestroyArrow);
       _arrowPrefab ??= gameplayPrefabProvider.GetHeroProjectilePrefab<ArrowBehaviour>();
       if (_arrowContainer is not null)
         return;
@@ -55,13 +55,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     public void Attack(Vector3 targetPosition)
     {
-      ArrowBehaviour arrow = _arrowPool.Get();
+      ArrowBehaviour arrow = _heroArrowPool.Get();
       arrow.ShootAt(targetPosition, _attackDirection);
     }
 
     public void Dispose()
     {
-      _arrowPool?.Dispose();
+      _heroArrowPool?.Dispose();
     }
 
     private static void ReleaseArrow(ArrowBehaviour arrow)
@@ -71,7 +71,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     private void GetArrow(ArrowBehaviour arrow)
     {
-      arrow.Initialize(_owner, _arrowPool, _attackSystem);
+      arrow.Initialize(_owner, _heroArrowPool, _attackSystem);
       arrow.GetFromPool();
     }
 

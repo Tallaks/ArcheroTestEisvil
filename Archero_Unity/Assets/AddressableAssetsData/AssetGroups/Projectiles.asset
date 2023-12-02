@@ -18,12 +18,19 @@ MonoBehaviour:
   m_GUID: 339a5c454598aa44c98e2dbb0e0f6b83
   m_SerializeEntries:
   - m_GUID: f0a3d558986904e45a6b9fb7c7241da7
-    m_Address: Arrow
+    m_Address: HeroArrow
     m_ReadOnly: 0
     m_SerializedLabels:
     - Hero
     - Projectile
     - Gameplay
+  - m_GUID: f12cb695296ef2846a8bdb1e59b1307c
+    m_Address: EnemyArrow
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Gameplay
+    - Projectile
+    - Enemy
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 56ffb237c72da4f4f92ec4014ebd822e, type: 2}
   m_SchemaSet:
