@@ -16,7 +16,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
       if (other.TryGetComponent(out HitBox enemyHitBox) && enemyHitBox.Owner is EnemyBehaviour enemy)
         foreach (IDamageApplier damageApplier in DamageAppliers)
         {
-          Debug.Log($"Applying damage to {enemy.name}");
           damageApplier.ApplyDamage(enemy.Health, Damage);
           PerformHit(enemy.Position);
         }

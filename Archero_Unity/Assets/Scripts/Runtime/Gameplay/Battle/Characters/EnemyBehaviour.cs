@@ -26,19 +26,22 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
 
     private bool _isInitialized;
 
+    private void Awake()
+    {
+      enabled = false;
+    }
+
     private void Update()
     {
       Brain.UpdateBehaviour(Time.deltaTime);
     }
 
-    public void Initialize(EnemyConfig config, ICharacterRegistry characterRegistry,
-      IVisibilityService visibilityService)
+    public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService)
     {
+      enabled = true;
       _characterRegistry = characterRegistry;
-      characterRegistry.RegisterEnemy(this);
       Movement.Initialize(this);
       AttackHandler.Initialize(this);
-      Health = new Health(config.MaxHealth);
       Health.OnDead += Die;
       HitBox.Initialize(this);
       Brain.Initialize(this, characterRegistry, visibilityService);
@@ -66,6 +69,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
         Position = Vector3.Lerp(startPosition, targetPosition, t);
         yield return null;
       }
+    }
+
+    public void ApplyProperties(EnemyConfig config)
+    {
+      Health = new Health(config.MaxHealth);
     }
   }
 }

@@ -17,13 +17,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     }
 
     public abstract void Dispose();
-
     public abstract void MoveTo(Vector3 position);
     public abstract void Stop();
 
-    public Vector3 GetPosition()
+    public void LookAt(Vector3 heroPosition)
     {
-      return Owner.Position;
+      transform.LookAt(heroPosition);
     }
   }
 }

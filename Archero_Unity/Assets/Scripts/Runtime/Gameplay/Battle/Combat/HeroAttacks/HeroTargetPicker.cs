@@ -23,6 +23,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       _visibilityService = visibilityService;
     }
 
+    public void Initialize()
+    {
+      _allEnemies = _characterRegistry.Enemies.ToArray();
+      _visibleEnemies = new EnemyBehaviour[_allEnemies.Length];
+      _savedTime = Time.time;
+    }
+
     public Vector3 GetClosestTargetPosition(Vector3 fromPosition)
     {
       if (Time.time - _savedTime < 0.001f)
@@ -79,13 +86,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     public void Dispose()
     {
       _allEnemies = null;
-    }
-
-    public void Initialize()
-    {
-      _allEnemies = _characterRegistry.Enemies.ToArray();
-      _visibleEnemies = new EnemyBehaviour[_allEnemies.Length];
-      _savedTime = Time.time;
     }
   }
 }

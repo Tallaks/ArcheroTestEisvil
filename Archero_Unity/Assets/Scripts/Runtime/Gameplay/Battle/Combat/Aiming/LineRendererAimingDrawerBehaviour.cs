@@ -27,5 +27,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Aiming
     {
       _lineRenderer.positionCount = 0;
     }
+
+    public override void Dispose()
+    {
+      _lineRenderer.positionCount = 0;
+    }
   }
 }

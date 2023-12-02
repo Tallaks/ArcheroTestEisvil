@@ -11,7 +11,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
 
     public override void Initialize(NodeInitializationParams initializationParams)
     {
-      if (initializationParams.Owner.AttackHandler is not EnemyAimedAttackHandler enemyAimedAttackHandler)
+      if (initializationParams.Owner.AttackHandler is not EnemyAimedAttackHandler enemyAimedAttackHandler ||
+          enemyAimedAttackHandler.AimingDrawer == null)
         Debug.LogError("AimAtHeroNode can only be used with EnemyAimedAttackHandler");
       else
         _aimedAttackHandler = enemyAimedAttackHandler;

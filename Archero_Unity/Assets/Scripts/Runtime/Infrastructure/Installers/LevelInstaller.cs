@@ -1,11 +1,13 @@
 using System.Linq;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using UnityEngine;
 using Zenject;
@@ -16,16 +18,22 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
   {
     [SerializeField] private Transform _charactersParent;
     [SerializeField] private HeroSpawnPoint _heroSpawnPoint;
+
     private ICharacterRegistry _characterRegistry;
     private IInputService _inputService;
     private ITargetPicker _targetPicker;
+    private IVisibilityService _visibilityService;
+    private IBattleStarter _battleStarter;
 
     [Inject]
-    private void Construct(IInputService inputService, ITargetPicker targetPicker, ICharacterRegistry characterRegistry)
+    private void Construct(IInputService inputService, ITargetPicker targetPicker, ICharacterRegistry characterRegistry,
+      IVisibilityService visibilityService, IBattleStarter battleStarter)
     {
       _inputService = inputService;
       _targetPicker = targetPicker;
       _characterRegistry = characterRegistry;
+      _visibilityService = visibilityService;
+      _battleStarter = battleStarter;
     }
 
 #if UNITY_EDITOR
@@ -36,7 +44,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     }
 #endif
 
-    public void Initialize()
+    public async void Initialize()
     {
       Debug.Log("Level initialized");
       HeroBehaviour hero = Container.Resolve<HeroFactory>().Create(_heroSpawnPoint, _charactersParent);
@@ -44,10 +52,16 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 
       EnemySpawnPoint[] enemySpawnPoints = FindObjectsOfType<EnemySpawnPoint>();
       foreach (EnemySpawnPoint enemySpawnPoint in enemySpawnPoints)
-        Container.Resolve<EnemyFactory>().Create(enemySpawnPoint, _charactersParent);
+      {
+        EnemyBehaviour enemy = Container.Resolve<EnemyFactory>().Create(enemySpawnPoint, _charactersParent);
+        _characterRegistry.RegisterEnemy(enemy);
+      }
 
+      await _battleStarter.WaitForBattleStart();
       _targetPicker.Initialize();
       InitializeHero(hero);
+      foreach (EnemyBehaviour enemy in _characterRegistry.Enemies)
+        enemy.Initialize(_characterRegistry, _visibilityService);
     }
 
     public override void InstallBindings()

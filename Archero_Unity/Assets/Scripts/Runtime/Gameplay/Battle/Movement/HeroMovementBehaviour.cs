@@ -55,7 +55,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
       while (!IsMoving)
       {
         yield return null;
-        transform.LookAt(_targetPicker.GetClosestTargetPosition(_characterController.transform.position));
+        Vector3 lookAtPoint = _targetPicker.GetClosestTargetPosition(_characterController.transform.position);
+        if (lookAtPoint != Vector3.zero)
+          transform.LookAt(lookAtPoint);
       }
     }
 

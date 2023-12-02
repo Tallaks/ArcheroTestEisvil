@@ -1,6 +1,7 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
@@ -38,7 +39,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     {
       await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectiles();
       await Container.Resolve<IAsyncLevelLoader>().LoadLevel(_firstLevelProperties);
-      _gameplayUi.Initialize(_inputService);
+      _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
     }
 
     public override void InstallBindings()
@@ -76,6 +77,11 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       Container
         .Bind<TransformContainer>()
         .FromInstance(_transformContainer)
+        .AsSingle();
+
+      Container
+        .Bind<IBattleStarter>()
+        .To<BattleStarter>()
         .AsSingle();
     }
   }

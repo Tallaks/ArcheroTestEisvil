@@ -17,6 +17,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     public override void Dispose()
     {
+      AimingDrawer.Dispose();
     }
   }
 }

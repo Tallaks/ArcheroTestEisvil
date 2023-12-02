@@ -1,4 +1,5 @@
 using System;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
   public class AimAtHeroNode : HeroNodeBase
   {
     private EnemyAimedAttackHandler _aimedAttackHandler;
+    private EnemyBehaviour _owner;
 
     public override void Initialize(NodeInitializationParams initializationParams)
     {
@@ -15,6 +17,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
         Debug.LogError("AimAtHeroNode can only be used with EnemyAimedAttackHandler");
       else
         _aimedAttackHandler = enemyAimedAttackHandler;
+      _owner = initializationParams.Owner;
       base.Initialize(initializationParams);
     }
 
@@ -22,6 +25,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.He
     {
       base.GetResult(deltaTime, debug);
       _aimedAttackHandler.AimingDrawer.DrawAimingLine(Hero.Position);
+      _owner.Movement.LookAt(Hero.Position);
       return true;
     }
   }
