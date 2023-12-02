@@ -25,5 +25,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       BaseCooldownSec = config.BaseCooldownSec;
       HitBox.Initialize(this);
     }
+
+    public override void Die()
+    {
+    }
   }
 }

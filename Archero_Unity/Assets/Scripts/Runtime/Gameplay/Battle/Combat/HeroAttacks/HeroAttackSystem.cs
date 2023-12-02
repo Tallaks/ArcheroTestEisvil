@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using UnityEngine;
 
@@ -9,13 +10,19 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 {
   public class HeroAttackSystem : IHeroAttackSystem
   {
+    private readonly ICharacterRegistry _characterRegistry;
     private readonly List<IHeroAttackHandler> _allAttackHandlers = new();
     private readonly List<ICooldownAttackHandler> _cooldownAttackHandlers = new();
     private readonly List<IDamageApplier> _damageAppliers = new();
 
     public IEnumerable<IDamageApplier> DamageAppliers => _damageAppliers;
-
     private CancellationTokenSource _cancellationTokenSource;
+
+    public HeroAttackSystem(ICharacterRegistry characterRegistry)
+    {
+      _characterRegistry = characterRegistry;
+      characterRegistry.OnAllEnemiesDead += Dispose;
+    }
 
     public async UniTaskVoid StartWorking()
     {
@@ -52,6 +59,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       _allAttackHandlers.Clear();
       _cooldownAttackHandlers.Clear();
       _damageAppliers.Clear();
+      _characterRegistry.OnAllEnemiesDead -= Dispose;
     }
   }
 }

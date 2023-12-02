@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Constants;
@@ -25,7 +27,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
       _owner = owner;
       _pool = pool;
       Damage = _owner.BaseDamage;
-      DamageAppliers = attackSystem.DamageAppliers;
+      DamageAppliers = new List<IDamageApplier>(attackSystem.DamageAppliers);
     }
 
     public void ShootAt(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)
@@ -38,6 +40,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
       if (_shootRoutine != null)
         StopCoroutine(_shootRoutine);
       transform.position = Vector3.down;
+      DamageAppliers = null;
     }
 
     public void GetFromPool()

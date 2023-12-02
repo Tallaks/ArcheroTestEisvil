@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
@@ -6,8 +7,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
   {
     private readonly List<EnemyBehaviour> _enemies = new();
 
+    public event Action OnAllEnemiesDead;
     public HeroBehaviour Hero { get; private set; }
     public IEnumerable<EnemyBehaviour> Enemies => _enemies;
+    private int _deadEnemiesCount;
 
     public void RegisterHero(HeroBehaviour hero)
     {
@@ -19,9 +22,17 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       _enemies.Add(enemyBehaviour);
     }
 
+    public void RegisterEnemyDeath()
+    {
+      _deadEnemiesCount++;
+      if (_deadEnemiesCount == _enemies.Count)
+        OnAllEnemiesDead?.Invoke();
+    }
+
     public void Dispose()
     {
       _enemies.Clear();
+      Hero = null;
     }
   }
 }

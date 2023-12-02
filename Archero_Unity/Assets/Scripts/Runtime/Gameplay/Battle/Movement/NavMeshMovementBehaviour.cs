@@ -21,6 +21,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
       _navMeshAgent.SetDestination(position);
     }
 
+    public override void Dispose()
+    {
+      _navMeshAgent.enabled = false;
+    }
+
     public override void Stop()
     {
       _navMeshAgent.isStopped = true;

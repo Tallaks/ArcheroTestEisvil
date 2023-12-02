@@ -7,6 +7,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage
   {
     public IDamageable Owner { get; private set; }
 
+    private void OnDisable()
+    {
+      GetComponent<Collider>().enabled = false;
+    }
+
     public void Initialize(IDamageable owner)
     {
       Owner = owner;

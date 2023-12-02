@@ -13,14 +13,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
 
     private void OnTriggerEnter(Collider other)
     {
-      if (!other.TryGetComponent(out HitBox enemyHitBox) || enemyHitBox.Owner is not EnemyBehaviour enemy)
-        return;
-      foreach (IDamageApplier damageApplier in DamageAppliers)
-      {
-        Debug.Log($"Applying damage to {enemy.name}");
-        damageApplier.ApplyDamage(enemy.Health, Damage);
-        PerformHit(enemy.Position);
-      }
+      if (other.TryGetComponent(out HitBox enemyHitBox) && enemyHitBox.Owner is EnemyBehaviour enemy)
+        foreach (IDamageApplier damageApplier in DamageAppliers)
+        {
+          Debug.Log($"Applying damage to {enemy.name}");
+          damageApplier.ApplyDamage(enemy.Health, Damage);
+          PerformHit(enemy.Position);
+        }
+      else if (other.TryGetComponent(out ObstacleBehaviour obstacle))
+        PerformHit(obstacle.transform.position);
     }
 
     public abstract void PerformHit(Vector3 hitPosition);

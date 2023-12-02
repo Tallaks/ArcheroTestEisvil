@@ -33,7 +33,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       for (var i = 0; i < _allEnemies.Length; i++)
       {
         EnemyBehaviour enemy = _allEnemies[i];
-        if (!_visibilityService.EnemyIsVisibleByHero(_characterRegistry.Hero, enemy))
+        if (!_visibilityService.EnemyIsVisibleByHero(_characterRegistry.Hero, enemy) || enemy.IsDead)
           continue;
         _visibleEnemies[i] = enemy;
         visibleEnemiesCount++;
@@ -41,11 +41,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
       EnemyBehaviour closestVisibleEnemy = null;
       for (var i = 0; i < visibleEnemiesCount; i++)
+      {
+        if (_visibleEnemies[i].IsDead)
+          continue;
         if (minDistance > Vector3.Distance(fromPosition, _visibleEnemies[i].Position))
         {
           minDistance = Vector3.Distance(fromPosition, _visibleEnemies[i].Position);
           closestVisibleEnemy = _visibleEnemies[i];
         }
+      }
 
       if (closestVisibleEnemy != null)
       {
@@ -56,11 +60,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       minDistance = float.MaxValue;
       EnemyBehaviour closestEnemyAll = null;
       for (var i = 0; i < _allEnemies.Length; i++)
+      {
+        if (_allEnemies[i].IsDead)
+          continue;
         if (minDistance > Vector3.Distance(fromPosition, _allEnemies[i].Position))
         {
           minDistance = Vector3.Distance(fromPosition, _allEnemies[i].Position);
           closestEnemyAll = _allEnemies[i];
         }
+      }
 
       _cachedClosestEnemyPosition = closestEnemyAll != null
         ? closestEnemyAll.Position.WithY(PhysicsConstants.ProjectileHeight)

@@ -19,5 +19,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai
     {
       BehaviourTree.RootNode.GetResult(deltaTime);
     }
+
+    public override void Dispose()
+    {
+      BehaviourTree.Clear();
+    }
   }
 }

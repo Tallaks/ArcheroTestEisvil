@@ -69,17 +69,17 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
       arrow.ReturnToPool();
     }
 
-    private static void GetArrow(ArrowBehaviour arrow)
+    private void GetArrow(ArrowBehaviour arrow)
     {
+      arrow.Initialize(_owner, _arrowPool, _attackSystem);
       arrow.GetFromPool();
     }
 
-    private ArrowBehaviour CreateArrow()
+    private static ArrowBehaviour CreateArrow()
     {
-      ArrowBehaviour arrowBehaviour =
+      ArrowBehaviour arrow =
         Object.Instantiate(_arrowPrefab, Vector3.down, Quaternion.identity, _arrowContainer);
-      arrowBehaviour.Initialize(_owner, _arrowPool, _attackSystem);
-      return arrowBehaviour;
+      return arrow;
     }
 
     private static void DestroyArrow(ArrowBehaviour obj)
