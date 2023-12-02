@@ -18,7 +18,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers
     private Dictionary<Type, HeroProjectileBehaviourBase> _heroProjectilePrefabsByType = new();
     private Dictionary<Type, EnemyProjectileBehaviourBase> _enemyProjectilePrefabsByType = new();
 
-    public async UniTask LoadHeroProjectiles()
+    public async UniTask LoadHeroProjectilesAsync()
     {
       IList<GameObject> allHeroProjectiles =
         await Addressables
@@ -29,7 +29,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers
         .ToDictionary(heroProjectile => heroProjectile.GetType());
     }
 
-    public async UniTask LoadEnemyProjectiles()
+    public async UniTask LoadEnemyProjectilesAsync()
     {
       IList<GameObject> allEnemyProjectiles =
         await Addressables

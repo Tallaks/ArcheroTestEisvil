@@ -7,7 +7,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes
 {
   public class AsyncLevelLoader : IAsyncLevelLoader
   {
-    public AsyncOperationHandle<SceneInstance> LoadLevel(LevelProperties levelProperties)
+    public AsyncOperationHandle<SceneInstance> LoadLevelAsync(LevelProperties levelProperties)
     {
       return Addressables.LoadSceneAsync(levelProperties.GetSceneName(), LoadSceneMode.Additive);
     }

@@ -2,7 +2,9 @@ using System.Collections;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Constants;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions;
 using UnityEngine;
 
@@ -15,11 +17,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies
     private Coroutine _shootRoutine;
     private EnemyBehaviour _owner;
     private EnemyArrowPool _pool;
+    private IVisualEffectPerformer _visualEffectPerformer;
 
-    public void Initialize(EnemyBehaviour owner, EnemyArrowPool pool)
+    public void Reinitialize(EnemyBehaviour owner, EnemyArrowPool pool, IVisualEffectPerformer visualEffectPerformer)
     {
       _owner = owner;
       _pool = pool;
+      _visualEffectPerformer = visualEffectPerformer;
       Damage = _owner.BaseDamage;
       DamageApplier = new ValueDamageApplier();
     }
@@ -54,6 +58,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies
     public override void PerformHit(Vector3 hitPosition)
     {
       _pool.Release(this);
+      _visualEffectPerformer.Play(ParticleType.DefaultProjectileHit, hitPosition);
     }
   }
 }

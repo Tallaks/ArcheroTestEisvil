@@ -2,6 +2,7 @@ using System.Collections;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
@@ -40,12 +41,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     }
 
     public void Initialize(ICharacterRegistry characterRegistry, IGameplayPrefabProvider gameplayPrefabProvider,
-      IVisibilityService visibilityService, TransformContainer transformContainer)
+      IVisualEffectPerformer visualEffectPerformer, IVisibilityService visibilityService,
+      TransformContainer transformContainer)
     {
       enabled = true;
       _characterRegistry = characterRegistry;
       Movement.Initialize(this);
-      AttackHandler.Initialize(this, gameplayPrefabProvider, transformContainer);
+      AttackHandler.Initialize(this, gameplayPrefabProvider, visualEffectPerformer, transformContainer);
       Health.OnDead += Die;
       HitBox.Initialize(this);
       Brain.Initialize(this, characterRegistry, visibilityService);

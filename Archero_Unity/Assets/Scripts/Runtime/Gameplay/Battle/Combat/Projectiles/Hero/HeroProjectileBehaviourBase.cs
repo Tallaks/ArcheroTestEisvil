@@ -17,10 +17,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
         foreach (IDamageApplier damageApplier in DamageAppliers)
         {
           damageApplier.ApplyDamage(enemy.Health, Damage);
-          PerformHit(enemy.Position);
+          PerformHit(transform.position);
         }
       else if (other.TryGetComponent(out ObstacleBehaviour obstacle))
-        PerformHit(obstacle.transform.position);
+        PerformHit(transform.position);
     }
 
     public abstract void PerformHit(Vector3 hitPosition);

@@ -5,8 +5,10 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Constants;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions;
 using UnityEngine;
 
@@ -17,15 +19,18 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
     [SerializeField] private float _speed;
 
     private IHeroAttackSystem _attackSystem;
+    private IVisualEffectPerformer _visualEffectPerformer;
 
     private HeroBehaviour _owner;
     private HeroArrowPool _pool;
     private Coroutine _shootRoutine;
 
-    public void Initialize(HeroBehaviour owner, HeroArrowPool pool, IHeroAttackSystem attackSystem)
+    public void Reinitialize(HeroBehaviour owner, HeroArrowPool pool, IHeroAttackSystem attackSystem,
+      IVisualEffectPerformer visualEffectPerformer)
     {
       _owner = owner;
       _pool = pool;
+      _visualEffectPerformer = visualEffectPerformer;
       Damage = _owner.BaseDamage;
       DamageAppliers = new List<IDamageApplier>(attackSystem.DamageAppliers);
     }
@@ -50,6 +55,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
 
     public override void PerformHit(Vector3 hitPosition)
     {
+      _visualEffectPerformer.Play(ParticleType.DefaultProjectileHit, hitPosition);
       _pool.Release(this);
     }
 

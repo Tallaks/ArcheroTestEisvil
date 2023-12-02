@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
@@ -42,9 +43,11 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 
     private async UniTaskVoid InitializeAsync()
     {
-      await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectiles();
-      await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectiles();
-      await Container.Resolve<IAsyncLevelLoader>().LoadLevel(_firstLevelProperties);
+      Container.Resolve<IVisualEffectPerformer>().Initialize();
+      await Container.Resolve<IParticlePrefabProvider>().LoadParticlePrefabsAsync();
+      await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectilesAsync();
+      await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectilesAsync();
+      await Container.Resolve<IAsyncLevelLoader>().LoadLevelAsync(_firstLevelProperties);
       _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
     }
 
@@ -88,6 +91,16 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       Container
         .Bind<IBattleStarter>()
         .To<BattleStarter>()
+        .AsSingle();
+
+      Container
+        .Bind<IParticlePrefabProvider>()
+        .To<ParticlePrefabProvider>()
+        .AsSingle();
+
+      Container
+        .Bind<IVisualEffectPerformer>()
+        .To<VisualEffectPerformer>()
         .AsSingle();
     }
   }

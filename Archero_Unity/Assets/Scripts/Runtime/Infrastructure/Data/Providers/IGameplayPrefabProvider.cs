@@ -7,8 +7,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers
 {
   public interface IGameplayPrefabProvider : IDisposable
   {
-    UniTask LoadHeroProjectiles();
-    UniTask LoadEnemyProjectiles();
+    UniTask LoadHeroProjectilesAsync();
+    UniTask LoadEnemyProjectilesAsync();
     T GetHeroProjectilePrefab<T>() where T : HeroProjectileBehaviourBase;
     T GetEnemyProjectilePrefab<T>() where T : EnemyProjectileBehaviourBase;
   }

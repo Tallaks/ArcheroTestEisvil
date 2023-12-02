@@ -1,6 +1,7 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using UnityEngine;
@@ -12,11 +13,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
     private EnemyArrowPool _arrowPool;
     private static EnemyArrowBehaviour _arrowPrefab;
     private static Transform _arrowContainer;
+    private IVisualEffectPerformer _visualEffectPerformer;
 
-    public override void Initialize(EnemyBehaviour owner, IGameplayPrefabProvider gameplayPrefabProvider,
+    public override void Initialize(EnemyBehaviour owner,
+      IGameplayPrefabProvider gameplayPrefabProvider,
+      IVisualEffectPerformer visualEffectPerformer,
       TransformContainer transformContainer)
     {
-      base.Initialize(owner, gameplayPrefabProvider, transformContainer);
+      base.Initialize(owner, gameplayPrefabProvider, _visualEffectPerformer, transformContainer);
+      _visualEffectPerformer = visualEffectPerformer;
       Cooldown = owner.Movement.MaxDistanceMovedByState / owner.Movement.Speed;
       _arrowPool ??= new EnemyArrowPool(CreateArrow, GetArrow, ReleaseArrow, DestroyArrow);
       _arrowContainer ??= transformContainer.EnemyProjectileContainer;
@@ -41,7 +46,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     private void GetArrow(EnemyArrowBehaviour arrow)
     {
-      arrow.Initialize(Owner, _arrowPool);
+      arrow.Reinitialize(Owner, _arrowPool, _visualEffectPerformer);
       arrow.GetFromPool();
     }
 

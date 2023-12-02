@@ -14,11 +14,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies
       if (other.TryGetComponent(out HitBox enemyHitBox) && enemyHitBox.Owner is HeroBehaviour hero)
       {
         DamageApplier.ApplyDamage(hero.Health, Damage);
-        PerformHit(hero.Position);
+        PerformHit(transform.position);
       }
       else if (other.TryGetComponent(out ObstacleBehaviour obstacle))
       {
-        PerformHit(obstacle.transform.position);
+        PerformHit(transform.position);
       }
     }
 

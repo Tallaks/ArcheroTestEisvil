@@ -1,6 +1,7 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Pools;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
@@ -17,6 +18,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     public float CooldownSec { get; private set; }
     private HeroConfig.DefaultAttackDirection _attackDirection;
     private IHeroAttackSystem _attackSystem;
+    private IVisualEffectPerformer _visualEffectPerformer;
     private float _currentTime;
     private HeroBehaviour _owner;
     private ITargetPicker _targetPicker;
@@ -38,8 +40,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     public void Initialize(
       HeroConfig.DefaultAttackDirection attackDirection, HeroBehaviour owner, IHeroAttackSystem attackSystem,
+      IVisualEffectPerformer visualEffectPerformer,
       IGameplayPrefabProvider gameplayPrefabProvider, ITargetPicker targetPicker, TransformContainer transformContainer)
     {
+      _visualEffectPerformer = visualEffectPerformer;
       _attackSystem = attackSystem;
       _targetPicker = targetPicker;
       CooldownSec = owner.BaseCooldownSec;
@@ -71,7 +75,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     private void GetArrow(ArrowBehaviour arrow)
     {
-      arrow.Initialize(_owner, _heroArrowPool, _attackSystem);
+      arrow.Reinitialize(_owner, _heroArrowPool, _attackSystem, _visualEffectPerformer);
       arrow.GetFromPool();
     }
 
