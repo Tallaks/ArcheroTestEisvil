@@ -2,6 +2,7 @@ using System.Linq;
 using Cysharp.Threading.Tasks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
@@ -101,6 +102,11 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       Container
         .Bind<IVisualEffectPerformer>()
         .To<VisualEffectPerformer>()
+        .AsSingle();
+
+      Container
+        .Bind<IEnemyAttackHandlerBuilder>()
+        .To<EnemyAttackHandlerBuilder>()
         .AsSingle();
     }
   }

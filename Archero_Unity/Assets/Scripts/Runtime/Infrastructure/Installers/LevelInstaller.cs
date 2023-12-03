@@ -3,14 +3,12 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.Factory;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks.Factory;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using UnityEngine;
 using Zenject;
@@ -25,26 +23,21 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     private ICharacterRegistry _characterRegistry;
     private ITargetPicker _targetPicker;
     private IInputService _inputService;
-    private IGameplayPrefabProvider _gameplayPrefabProvider;
     private IVisibilityService _visibilityService;
     private IBattleStarter _battleStarter;
-    private IVisualEffectPerformer _visualEffectPerformer;
-    private TransformContainer _transformContainer;
+    private IEnemyAttackHandlerBuilder _enemyAttackHandlerBuilder;
 
     [Inject]
     private void Construct(IInputService inputService, ITargetPicker targetPicker, ICharacterRegistry characterRegistry,
-      IGameplayPrefabProvider gameplayPrefabProvider, IVisibilityService visibilityService,
-      IBattleStarter battleStarter,
-      IVisualEffectPerformer visualEffectPerformer, TransformContainer transformContainer)
+      IVisibilityService visibilityService,
+      IBattleStarter battleStarter, IEnemyAttackHandlerBuilder enemyAttackHandlerBuilder)
     {
       _inputService = inputService;
       _targetPicker = targetPicker;
       _characterRegistry = characterRegistry;
-      _gameplayPrefabProvider = gameplayPrefabProvider;
       _visibilityService = visibilityService;
       _battleStarter = battleStarter;
-      _visualEffectPerformer = visualEffectPerformer;
-      _transformContainer = transformContainer;
+      _enemyAttackHandlerBuilder = enemyAttackHandlerBuilder;
     }
 
 #if UNITY_EDITOR
@@ -57,7 +50,6 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 
     public async void Initialize()
     {
-      Debug.Log("Level initialized");
       HeroBehaviour hero = Container.Resolve<HeroFactory>().Create(_heroSpawnPoint, _charactersParent);
       _characterRegistry.RegisterHero(hero);
 
@@ -72,8 +64,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       _targetPicker.Initialize();
       InitializeHero(hero);
       foreach (EnemyBehaviour enemy in _characterRegistry.Enemies)
-        enemy.Initialize(_characterRegistry, _gameplayPrefabProvider, _visualEffectPerformer, _visibilityService,
-          _transformContainer);
+        enemy.Initialize(_characterRegistry, _visibilityService, _enemyAttackHandlerBuilder);
     }
 
     public override void InstallBindings()

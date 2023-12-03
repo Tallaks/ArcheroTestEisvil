@@ -4,12 +4,11 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
@@ -31,7 +30,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     }
 
     private ICharacterRegistry _characterRegistry;
-
     private bool _isInitialized;
 
     private void Awake()
@@ -44,17 +42,21 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.UpdateBehaviour(Time.deltaTime);
     }
 
-    public void Initialize(ICharacterRegistry characterRegistry, IGameplayPrefabProvider gameplayPrefabProvider,
-      IVisualEffectPerformer visualEffectPerformer, IVisibilityService visibilityService,
-      TransformContainer transformContainer)
+    public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService,
+      IEnemyAttackHandlerBuilder enemyAttackHandlerBuilder)
     {
+      if (_isInitialized)
+        throw new InvalidOperationException("Cannot initialize EnemyBehaviour twice");
+      _isInitialized = true;
       enabled = true;
       _characterRegistry = characterRegistry;
-      Movement.Initialize(this);
-      CollisionHandler.Initialize(this);
-      AttackHandler.Initialize(this, gameplayPrefabProvider, visualEffectPerformer, transformContainer);
       Health.OnDead += Die;
       HitBox.Initialize(this);
+      enemyAttackHandlerBuilder.Build(this, CollisionHandler);
+      if (Movement != null)
+        Movement.Initialize(this);
+      if (AttackHandler != null)
+        enemyAttackHandlerBuilder.Build(this, AttackHandler);
       Brain.Initialize(this, characterRegistry, visibilityService);
     }
 
@@ -62,11 +64,14 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     {
       _characterRegistry.RegisterEnemyDeath();
       enabled = false;
-      Movement.Dispose();
       Brain.Dispose();
-      AttackHandler.Dispose();
       CollisionHandler.Dispose();
       HitBox.enabled = false;
+      if (Movement != null)
+        Movement.Dispose();
+      if (AttackHandler != null)
+        AttackHandler.Dispose();
+
       StartCoroutine(MoveDownRoutine());
     }
 

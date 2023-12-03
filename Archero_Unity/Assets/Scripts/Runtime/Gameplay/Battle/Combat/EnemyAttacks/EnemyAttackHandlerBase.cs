@@ -9,10 +9,39 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 {
   public abstract class EnemyAttackHandlerBase : MonoBehaviour, IDisposable
   {
+    protected IGameplayPrefabProvider GameplayPrefabProvider;
+    protected IVisualEffectPerformer VisualEffectPerformer;
+    protected TransformContainer TransformContainer;
     public float Cooldown { get; protected set; }
+    protected bool IsInitialized { get; private set; }
+    public EnemyBehaviour Owner { get; private set; }
 
-    public abstract void Initialize(EnemyBehaviour owner, IGameplayPrefabProvider gameplayPrefabProvider,
-      IVisualEffectPerformer visualEffectPerformer, TransformContainer transformContainer);
+    public EnemyAttackHandlerBase StartInitialization(EnemyBehaviour owner)
+    {
+      IsInitialized = true;
+      Owner = owner;
+      return this;
+    }
+
+    public EnemyAttackHandlerBase WithProjectiles(IGameplayPrefabProvider gameplayPrefabProvider,
+      IVisualEffectPerformer visualEffectPerformer, TransformContainer transformContainer)
+    {
+      if (!IsInitialized)
+        throw new InvalidOperationException(
+          "Cannot initialize EnemyAttackHandlerBase without calling StartInitialization first");
+      GameplayPrefabProvider = gameplayPrefabProvider;
+      VisualEffectPerformer = visualEffectPerformer;
+      TransformContainer = transformContainer;
+      return this;
+    }
+
+    public virtual EnemyAttackHandlerBase FinishInitialization()
+    {
+      if (!IsInitialized)
+        throw new InvalidOperationException(
+          "Cannot initialize EnemyAttackHandlerBase without calling StartInitialization first");
+      return this;
+    }
 
     public abstract void Dispose();
     public abstract void Attack(Vector3 hero);

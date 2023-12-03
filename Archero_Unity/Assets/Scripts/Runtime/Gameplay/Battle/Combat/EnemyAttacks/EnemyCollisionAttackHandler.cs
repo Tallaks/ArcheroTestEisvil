@@ -8,28 +8,28 @@ using UnityEngine;
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 {
   [RequireComponent(typeof(Collider))]
-  public class EnemyCollisionAttackHandler : MonoBehaviour, IDisposable
+  public class EnemyCollisionAttackHandler : EnemyAttackHandlerBase
   {
     private ValueDamageApplier _damageApplier;
     private EnemyBehaviour _owner;
     private CancellationTokenSource _cancellationTokenSource;
 
-    public void Initialize(EnemyBehaviour owner)
+    public override EnemyAttackHandlerBase FinishInitialization()
     {
-      _owner = owner;
       _damageApplier = new ValueDamageApplier();
+      return base.FinishInitialization();
     }
 
-    private async void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
       if (other.TryGetComponent(out IDamageable hero) && hero is HeroBehaviour)
       {
         _cancellationTokenSource = new CancellationTokenSource();
-        await ApplyDamageTo(hero, _cancellationTokenSource.Token);
+        ApplyDamageTo(hero, _cancellationTokenSource.Token);
       }
     }
 
-    private async UniTask ApplyDamageTo(IDamageable hero, CancellationToken cancellationToken = default)
+    private async UniTaskVoid ApplyDamageTo(IDamageable hero, CancellationToken cancellationToken = default)
     {
       while (cancellationToken.IsCancellationRequested == false)
       {
@@ -47,10 +47,15 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
       }
     }
 
-    public void Dispose()
+    public override void Dispose()
     {
       gameObject.SetActive(false);
       _cancellationTokenSource?.Dispose();
+    }
+
+    // TODO: restructure this
+    public override void Attack(Vector3 hero)
+    {
     }
   }
 }
