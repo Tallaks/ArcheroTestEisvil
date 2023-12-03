@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: b76d85b677b01e6409c806a846be1538
   Name: Enemy_Test_Archer
-  Prefab: {fileID: 6405528257997436613, guid: 02fb5b267db575a44871d6f434ee780d, type: 3}
+  Prefab: {fileID: 8223964049515601984, guid: 8d7ca0178590fc64c82fbeff88961e89, type: 3}
   MaxHealth: 20
   BaseDamage: 10
   DroppedItems:

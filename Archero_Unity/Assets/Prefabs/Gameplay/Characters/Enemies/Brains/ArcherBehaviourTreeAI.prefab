@@ -1,0 +1,455 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4634442200891497353
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713296257000418303}
+  - component: {fileID: 4054338529662659084}
+  - component: {fileID: 899536632417479275}
+  m_Layer: 7
+  m_Name: ArcherBehaviourTreeAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1713296257000418303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634442200891497353}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6407034883314233405}
+  - {fileID: 7192492090700059133}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4054338529662659084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634442200891497353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dabbb550ff0d44f4b6d1ddf9bccece80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BehaviourTree>k__BackingField: {fileID: 899536632417479275}
+--- !u!114 &899536632417479275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634442200891497353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7298633a76447ebb6266496bc7cc62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootNode:
+    Name: Root
+    ChildNode:
+      rid: 7267942979104145426
+  references:
+    version: 2
+    RefIds:
+    - rid: 1667696384610926593
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: Returns true if is not timeout
+        ChildNode:
+          rid: 1667696384610926594
+    - rid: 1667696384610926594
+      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Returns true if is timeout
+        Timer: {fileID: 464597924279755407}
+    - rid: 1667696384610926595
+      type: {class: WaitNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement,
+        asm: Runtime}
+      data:
+        Name: Wait
+    - rid: 1667696384610926613
+      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Finished waiting for attack
+        Timer: {fileID: 464597924279755407}
+    - rid: 7267942979104145426
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Main
+        ChildNodes:
+        - rid: 7267942979104145427
+        - rid: 7267942979104145428
+        - rid: 1667696384610926613
+        - rid: 7267942979104145449
+        - rid: 7267942979104145452
+    - rid: 7267942979104145427
+      type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Start wait for attack timer
+        ChildNodes:
+        - rid: 7267942979104145430
+        - rid: 7267942979104145432
+    - rid: 7267942979104145428
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: Move or wait if hero is visible
+        ChildNode:
+          rid: 7267942979104145433
+    - rid: 7267942979104145430
+      type: {class: TimerIsRunningNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Check if already running
+        Timer: {fileID: 464597924279755407}
+    - rid: 7267942979104145432
+      type: {class: StartTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Start if not
+        Timer: {fileID: 464597924279755407}
+    - rid: 7267942979104145433
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Move or wait if hero is visible
+        ChildNodes:
+        - rid: 1667696384610926593
+        - rid: 7267942979104145440
+        - rid: 7267942979104145435
+        - rid: 7267942979104145441
+    - rid: 7267942979104145435
+      type: {class: NotNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators,
+        asm: Runtime}
+      data:
+        Name: Hero is not visible
+        ChildNode:
+          rid: 7267942979104145439
+    - rid: 7267942979104145439
+      type: {class: HeroIsVisibleNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero,
+        asm: Runtime}
+      data:
+        Name: Check hero visibility by owner
+    - rid: 7267942979104145440
+      type: {class: UpdateTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Update wait timer
+        Timer: {fileID: 464597924279755407}
+    - rid: 7267942979104145441
+      type: {class: MovementToHeroNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement,
+        asm: Runtime}
+      data:
+        Name: Move towards hero
+    - rid: 7267942979104145449
+      type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Start aim timer if needed
+        ChildNodes:
+        - rid: 7267942979104145450
+        - rid: 7267942979104145451
+    - rid: 7267942979104145450
+      type: {class: TimerIsRunningNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Check if aim timer is running
+        Timer: {fileID: 4415801892896293711}
+    - rid: 7267942979104145451
+      type: {class: StartTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Start aim timer
+        Timer: {fileID: 4415801892896293711}
+    - rid: 7267942979104145452
+      type: {class: AnyNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Aim or attack
+        ChildNodes:
+        - rid: 7267942979104145453
+        - rid: 7267942979104145454
+    - rid: 7267942979104145453
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Shoot and reset timers
+        ChildNodes:
+        - rid: 7267942979104145455
+        - rid: 7267942979104145461
+        - rid: 7267942979104145456
+        - rid: 7267942979104145457
+        - rid: 7267942979104145458
+    - rid: 7267942979104145454
+      type: {class: AllNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites,
+        asm: Runtime}
+      data:
+        Name: Update aim timer and aim
+        ChildNodes:
+        - rid: 1667696384610926595
+        - rid: 7267942979104145459
+        - rid: 7267942979104145460
+    - rid: 7267942979104145455
+      type: {class: TimeOutNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Aim time out
+        Timer: {fileID: 4415801892896293711}
+    - rid: 7267942979104145456
+      type: {class: AttackHeroNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero,
+        asm: Runtime}
+      data:
+        Name: Shoot
+    - rid: 7267942979104145457
+      type: {class: ResetTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Reset aim timer
+        Timer: {fileID: 4415801892896293711}
+    - rid: 7267942979104145458
+      type: {class: ResetTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Reset wait timer
+        Timer: {fileID: 464597924279755407}
+    - rid: 7267942979104145459
+      type: {class: UpdateTimerNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer,
+        asm: Runtime}
+      data:
+        Name: Update aim timer
+        Timer: {fileID: 4415801892896293711}
+    - rid: 7267942979104145460
+      type: {class: AimAtHeroNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero,
+        asm: Runtime}
+      data:
+        Name: Aim at hero
+    - rid: 7267942979104145461
+      type: {class: StopAimingNode, ns: Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero,
+        asm: Runtime}
+      data:
+        Name: StopAiming
+--- !u!1001 &4877661552873355919
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1713296257000418303}
+    m_Modifications:
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Name
+      value: WaitForAttackTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Name
+      value: WaitForAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Type
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e061a79d24885bb489ad931a68c1340d, type: 3}
+--- !u!114 &464597924279755407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4877661552873355919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c658f6cacc914da7993695b45ac4282c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &6407034883314233405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4877661552873355919}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8685876206460492623
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1713296257000418303}
+    m_Modifications:
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Name
+      value: AimTimer
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635102661983336714, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Name
+      value: Aim
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+        type: 3}
+      propertyPath: Type
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e061a79d24885bb489ad931a68c1340d, type: 3}
+--- !u!114 &4415801892896293711 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5026714339504855040, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8685876206460492623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c658f6cacc914da7993695b45ac4282c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &7192492090700059133 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1971084673243384498, guid: e061a79d24885bb489ad931a68c1340d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8685876206460492623}
+  m_PrefabAsset: {fileID: 0}
