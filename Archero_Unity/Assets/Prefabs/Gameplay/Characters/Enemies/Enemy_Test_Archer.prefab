@@ -337,6 +337,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5836760360114269164, guid: 2440fcda8ef4eeb44a1d086b1f0641bf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 6405528257997436612, guid: 2440fcda8ef4eeb44a1d086b1f0641bf,
         type: 3}
       propertyPath: m_RootOrder
@@ -411,6 +416,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy_Test_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108378637188653831, guid: 2440fcda8ef4eeb44a1d086b1f0641bf,
+        type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7108378637188653831, guid: 2440fcda8ef4eeb44a1d086b1f0641bf,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2440fcda8ef4eeb44a1d086b1f0641bf, type: 3}

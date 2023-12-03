@@ -57,7 +57,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
         yield return null;
         Vector3 lookAtPoint = _targetPicker.GetClosestTargetPosition(_characterController.transform.position);
         if (lookAtPoint != Vector3.zero)
-          transform.LookAt(lookAtPoint);
+          transform.LookAt(lookAtPoint, Vector3.up);
       }
     }
 
@@ -79,7 +79,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
       {
         Vector3 movementDirection = (_inputService.PointerPosition - _startPointerPosition).FromXYToXZ().normalized;
         _characterController.Move(movementDirection * (_speed * Time.deltaTime));
-        transform.LookAt(_characterController.transform.position + movementDirection);
+        transform.LookAt(_characterController.transform.position + movementDirection, Vector3.up);
         yield return null;
       }
     }

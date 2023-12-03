@@ -19,6 +19,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     [field: SerializeField] public EnemyMovementBehaviourBase Movement { get; private set; }
     [field: SerializeField] public EnemyBrainBehaviourBase Brain { get; private set; }
     [field: SerializeField] public EnemyAttackHandlerBase AttackHandler { get; private set; }
+    [field: SerializeField] public EnemyCollisionAttackHandler CollisionHandler { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
     public int BaseDamage { get; private set; }
     private ItemDropper _itemDropper;
@@ -26,7 +27,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     public Vector3 Position
     {
       get => transform.position;
-      private set => transform.position = value;
+      set => transform.position = value;
     }
 
     private ICharacterRegistry _characterRegistry;
@@ -50,6 +51,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       enabled = true;
       _characterRegistry = characterRegistry;
       Movement.Initialize(this);
+      CollisionHandler.Initialize(this);
       AttackHandler.Initialize(this, gameplayPrefabProvider, visualEffectPerformer, transformContainer);
       Health.OnDead += Die;
       HitBox.Initialize(this);
@@ -63,6 +65,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Movement.Dispose();
       Brain.Dispose();
       AttackHandler.Dispose();
+      CollisionHandler.Dispose();
       HitBox.enabled = false;
       StartCoroutine(MoveDownRoutine());
     }
