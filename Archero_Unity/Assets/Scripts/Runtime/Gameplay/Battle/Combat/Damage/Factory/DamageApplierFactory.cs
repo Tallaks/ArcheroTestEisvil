@@ -1,5 +1,5 @@
 using System;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.Factory
 {

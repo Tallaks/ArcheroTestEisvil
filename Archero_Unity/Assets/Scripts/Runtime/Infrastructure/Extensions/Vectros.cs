@@ -13,5 +13,11 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions
     {
       return new Vector3(vector.x, 0, vector.y);
     }
+
+    public static Vector3 RandomOnCircle(this Vector3 vector, float radius = 1f)
+    {
+      int angle = Random.Range(0, 360);
+      return vector + Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward * radius;
+    }
   }
 }

@@ -1,4 +1,4 @@
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn

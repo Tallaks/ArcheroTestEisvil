@@ -1,10 +1,8 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
-using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
+namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs
 {
   [CreateAssetMenu(fileName = "Enemy_Name", menuName = "ArcheroTest/Characters/EnemyConfig")]
   public class EnemyConfig : ScriptableObject
@@ -14,6 +12,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
     public EnemyBehaviour Prefab;
     public int MaxHealth;
     public int BaseDamage;
+    public DroppableItems[] DroppedItems;
 
 #if UNITY_EDITOR
     private void OnValidate()

@@ -2,7 +2,7 @@ using System;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using UnityEngine;
 

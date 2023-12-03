@@ -7,5 +7,6 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data
     public Transform HeroProjectileContainer;
     public Transform EnemyProjectileContainer;
     public Transform FxContainer;
+    public Transform DropContainer;
   }
 }

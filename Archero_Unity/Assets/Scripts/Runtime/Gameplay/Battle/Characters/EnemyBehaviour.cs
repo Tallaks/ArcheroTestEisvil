@@ -1,24 +1,27 @@
+using System;
 using System.Collections;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
-using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
 {
-  public class EnemyBehaviour : DamageableBehaviour
+  public class EnemyBehaviour : DamageableBehaviour, IDisposable
   {
     [field: SerializeField] public EnemyMovementBehaviourBase Movement { get; private set; }
     [field: SerializeField] public EnemyBrainBehaviourBase Brain { get; private set; }
     [field: SerializeField] public EnemyAttackHandlerBase AttackHandler { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
     public int BaseDamage { get; private set; }
+    private ItemDropper _itemDropper;
 
     public Vector3 Position
     {
@@ -75,12 +78,27 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
         Position = Vector3.Lerp(startPosition, targetPosition, t);
         yield return null;
       }
+      Dispose();
     }
 
-    public void ApplyProperties(EnemyConfig config)
+    public void ApplyProperties(EnemyConfig config, ICharacterRegistry characterRegistry, TransformContainer transformContainer)
     {
       BaseDamage = config.BaseDamage;
       Health = new Health(config.MaxHealth);
+      _itemDropper = new ItemDropper(config.DroppedItems, characterRegistry, transformContainer);
+      Health.OnDead += DropItems;
+    }
+
+    private void DropItems()
+    {
+      _itemDropper.DropItems(Position);
+      _itemDropper.Dispose();
+    }
+
+    public void Dispose()
+    {
+      Health.OnDead -= Die;
+      Health.OnDead -= DropItems;
     }
   }
 }

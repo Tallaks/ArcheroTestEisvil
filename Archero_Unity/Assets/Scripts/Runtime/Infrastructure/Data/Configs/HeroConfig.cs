@@ -1,10 +1,8 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
-using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Characters
+namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs
 {
   [CreateAssetMenu(fileName = "Hero_Name", menuName = "ArcheroTest/Characters/HeroConfig")]
   public class HeroConfig : ScriptableObject

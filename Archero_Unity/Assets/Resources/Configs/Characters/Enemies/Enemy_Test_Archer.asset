@@ -17,3 +17,9 @@ MonoBehaviour:
   Prefab: {fileID: 6405528257997436613, guid: 02fb5b267db575a44871d6f434ee780d, type: 3}
   MaxHealth: 20
   BaseDamage: 10
+  DroppedItems:
+  - Name: Gold
+    MinAmount: 1
+    MaxAmount: 5
+    Prefab: {fileID: 1548790086784420596, guid: 08e9cc181b6b6824c858116e2831e7ee,
+      type: 3}
