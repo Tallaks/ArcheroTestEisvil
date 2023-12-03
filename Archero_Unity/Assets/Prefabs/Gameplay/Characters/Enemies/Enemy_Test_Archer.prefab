@@ -275,6 +275,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dec63c1c96241d09efe3e032e82d334, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageNumberMeshPrefab: {fileID: 626963423906257102, guid: 3a3a9099039d44446a04161bb9a18cf2,
+    type: 3}
 --- !u!1 &6405528257997436615
 GameObject:
   m_ObjectHideFlags: 0
