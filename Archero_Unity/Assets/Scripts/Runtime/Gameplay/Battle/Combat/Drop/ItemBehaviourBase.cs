@@ -27,7 +27,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
       characterRegistry.OnAllEnemiesDead += GetPickedUp;
       characterRegistry.OnAllEnemiesDead += MoveToPlayer;
     }
-    
+
     public void Drop(Vector3 position)
     {
       transform.position = position;

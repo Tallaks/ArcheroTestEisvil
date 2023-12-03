@@ -78,10 +78,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
         Position = Vector3.Lerp(startPosition, targetPosition, t);
         yield return null;
       }
+
       Dispose();
     }
 
-    public void ApplyProperties(EnemyConfig config, ICharacterRegistry characterRegistry, TransformContainer transformContainer)
+    public void ApplyProperties(EnemyConfig config, ICharacterRegistry characterRegistry,
+      TransformContainer transformContainer)
     {
       BaseDamage = config.BaseDamage;
       Health = new Health(config.MaxHealth);

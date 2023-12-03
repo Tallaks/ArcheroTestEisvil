@@ -7,7 +7,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
   {
     private void OnTriggerEnter(Collider other)
     {
-      if(other.attachedRigidbody.TryGetComponent(out ItemBehaviourBase itemBehaviour))
+      if (other.attachedRigidbody.TryGetComponent(out ItemBehaviourBase itemBehaviour))
         Destroy(itemBehaviour.gameObject);
     }
   }
