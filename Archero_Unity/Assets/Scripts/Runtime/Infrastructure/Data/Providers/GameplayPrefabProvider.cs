@@ -14,9 +14,9 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers
   {
     private readonly string[] _heroProjectileIds = { "Hero", "Projectile", "Gameplay" };
     private readonly string[] _enemyProjectileIds = { "Enemy", "Projectile", "Gameplay" };
+    private Dictionary<Type, EnemyProjectileBehaviourBase> _enemyProjectilePrefabsByType = new();
 
     private Dictionary<Type, HeroProjectileBehaviourBase> _heroProjectilePrefabsByType = new();
-    private Dictionary<Type, EnemyProjectileBehaviourBase> _enemyProjectilePrefabsByType = new();
 
     public async UniTask LoadHeroProjectilesAsync()
     {

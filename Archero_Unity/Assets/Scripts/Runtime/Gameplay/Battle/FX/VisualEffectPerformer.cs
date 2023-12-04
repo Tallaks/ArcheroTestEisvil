@@ -32,19 +32,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX
         );
     }
 
-    private static void ReleaseParticles(ParticleBehaviour particleBehaviour)
-    {
-      particleBehaviour.transform.position = Vector3.down;
-    }
-
-    private ParticleBehaviour CreatePrefab(ParticleType particleType)
-    {
-      ParticleBehaviour particleBehaviour = Object.Instantiate(_particlePrefabProvider.GetParticlePrefab(particleType),
-        _transformContainer.FxContainer);
-      particleBehaviour.Initialize(_poolsByType[particleType]);
-      return particleBehaviour;
-    }
-
     public void Play(ParticleType particleType, Vector3 position)
     {
       ParticleBehaviour particle = _poolsByType[particleType].Get();
@@ -56,6 +43,19 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX
     {
       foreach (ObjectPool<ParticleBehaviour> pool in _poolsByType.Values)
         pool.Dispose();
+    }
+
+    private static void ReleaseParticles(ParticleBehaviour particleBehaviour)
+    {
+      particleBehaviour.transform.position = Vector3.down;
+    }
+
+    private ParticleBehaviour CreatePrefab(ParticleType particleType)
+    {
+      ParticleBehaviour particleBehaviour = Object.Instantiate(_particlePrefabProvider.GetParticlePrefab(particleType),
+        _transformContainer.FxContainer);
+      particleBehaviour.Initialize(_poolsByType[particleType]);
+      return particleBehaviour;
     }
   }
 }

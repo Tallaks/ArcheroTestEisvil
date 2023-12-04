@@ -8,17 +8,17 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
   {
     [SerializeField] private NavMeshAgent _navMeshAgent;
 
+    private void Update()
+    {
+      Owner.Position = transform.position;
+      transform.localPosition = Vector3.zero;
+    }
+
     public override void Initialize(EnemyBehaviour enemyBehaviour)
     {
       base.Initialize(enemyBehaviour);
       _navMeshAgent.speed = Speed;
       _navMeshAgent.updateRotation = false;
-    }
-
-    private void Update()
-    {
-      Owner.Position = transform.position;
-      transform.localPosition = Vector3.zero;
     }
 
     public override void MoveTo(Vector3 position)
@@ -32,6 +32,18 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     {
       enabled = false;
       _navMeshAgent.enabled = false;
+    }
+
+    public override void OnPause()
+    {
+      _navMeshAgent.isStopped = true;
+      base.OnPause();
+    }
+
+    public override void OnResume()
+    {
+      base.OnResume();
+      _navMeshAgent.isStopped = false;
     }
 
     public override void Stop()

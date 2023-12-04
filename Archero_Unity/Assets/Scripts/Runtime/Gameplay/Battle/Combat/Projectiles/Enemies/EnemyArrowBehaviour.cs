@@ -12,11 +12,14 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies
 {
   public class EnemyArrowBehaviour : EnemyProjectileBehaviourBase
   {
-    [SerializeField] private float _speed;
+    private readonly WaitUntil _waitFrameUnpaused = new(() => _isPaused == false);
+    private static bool _isPaused;
 
-    private Coroutine _shootRoutine;
+    [SerializeField] private float _speed;
     private EnemyBehaviour _owner;
     private EnemyArrowPool _pool;
+
+    private Coroutine _shootRoutine;
     private IVisualEffectPerformer _visualEffectPerformer;
 
     public void Reinitialize(EnemyBehaviour owner, EnemyArrowPool pool, IVisualEffectPerformer visualEffectPerformer)
@@ -45,20 +48,32 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies
       transform.position = _owner.transform.position.WithY(PhysicsConstants.ProjectileHeight);
     }
 
+    public override void PerformHit(Vector3 hitPosition)
+    {
+      _pool.Release(this);
+      _visualEffectPerformer.Play(ParticleType.DefaultProjectileHit, hitPosition);
+    }
+
+    public override void OnResume()
+    {
+      base.OnResume();
+      _isPaused = false;
+    }
+
+    public override void OnPause()
+    {
+      base.OnPause();
+      _isPaused = true;
+    }
+
     private IEnumerator ShootRoutine(Vector3 targetPosition)
     {
       transform.LookAt(targetPosition);
       while (true)
       {
         transform.position += transform.forward * (_speed * Time.deltaTime);
-        yield return null;
+        yield return _waitFrameUnpaused;
       }
-    }
-
-    public override void PerformHit(Vector3 hitPosition)
-    {
-      _pool.Release(this);
-      _visualEffectPerformer.Play(ParticleType.DefaultProjectileHit, hitPosition);
     }
   }
 }

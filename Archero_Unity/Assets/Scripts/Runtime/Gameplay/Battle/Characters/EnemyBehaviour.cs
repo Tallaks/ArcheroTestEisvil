@@ -6,6 +6,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
@@ -14,7 +15,7 @@ using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
 {
-  public class EnemyBehaviour : DamageableBehaviour, IDisposable
+  public class EnemyBehaviour : DamageableBehaviour, IPauseHandler, IDisposable
   {
     [field: SerializeField] public EnemyMovementBehaviourBase Movement { get; private set; }
     [field: SerializeField] public EnemyBrainBehaviourBase Brain { get; private set; }
@@ -25,7 +26,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     public int BaseDamage { get; private set; }
     public float MaxDistanceMovedByState { get; private set; }
     public float Speed { get; protected set; }
-    private ItemDropper _itemDropper;
 
     public Vector3 Position
     {
@@ -36,10 +36,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     public float AttackCooldown { get; private set; }
     private ICharacterRegistry _characterRegistry;
     private bool _isInitialized;
+    private ItemDropper _itemDropper;
+    private IPauseService _pauseService;
 
     private void Awake()
     {
       enabled = false;
+      Movement.enabled = false;
     }
 
     private void Update()
@@ -47,7 +50,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.UpdateBehaviour(Time.deltaTime);
     }
 
-    public void Initialize(ICharacterRegistry characterRegistry, IVisibilityService visibilityService,
+    public void Initialize(ICharacterRegistry characterRegistry, IPauseService pauseService,
+      IVisibilityService visibilityService,
       IEnemyAttackHandlerBuilder enemyAttackHandlerBuilder)
     {
       if (_isInitialized)
@@ -55,6 +59,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       _isInitialized = true;
       enabled = true;
       _characterRegistry = characterRegistry;
+      _pauseService = pauseService;
+      _pauseService.Register(this);
       _characterRegistry.Hero.Health.OnDead += OnHeroDead;
       Health.OnDead += Die;
       HitBox.Initialize(this);
@@ -68,16 +74,25 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.Initialize(this, characterRegistry, visibilityService);
     }
 
-    private void OnHeroDead()
+    public void Dispose()
+    {
+      Health.OnDead -= Die;
+      Health.OnDead -= DropItems;
+      _characterRegistry.Hero.Health.OnDead -= OnHeroDead;
+    }
+
+    public void OnPause()
     {
       enabled = false;
-      Brain.Dispose();
-      CollisionHandler.Dispose();
-      HitBox.enabled = false;
-      if (Movement != null)
-        Movement.Dispose();
-      if (AttackHandler != null)
-        AttackHandler.Dispose();
+      Movement.OnPause();
+      CollisionHandler.OnPause();
+    }
+
+    public void OnResume()
+    {
+      enabled = true;
+      Movement.OnResume();
+      CollisionHandler.OnResume();
     }
 
     public override void Die()
@@ -87,12 +102,38 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Brain.Dispose();
       CollisionHandler.Dispose();
       HitBox.enabled = false;
+      _pauseService.Unregister(this);
       if (Movement != null)
         Movement.Dispose();
       if (AttackHandler != null)
         AttackHandler.Dispose();
 
       StartCoroutine(MoveDownRoutine());
+    }
+
+    public void ApplyProperties(EnemyConfig config, ICharacterRegistry characterRegistry,
+      TransformContainer transformContainer)
+    {
+      BaseDamage = config.BaseDamage;
+      Health = new Health(config.MaxHealth);
+      AttackCooldown = config.MaxDistanceMovedByState / config.Speed;
+      MaxDistanceMovedByState = config.MaxDistanceMovedByState;
+      Speed = config.Speed;
+      _itemDropper = new ItemDropper(config.DroppedItems, characterRegistry, transformContainer);
+      Health.OnDead += DropItems;
+    }
+
+    private void OnHeroDead()
+    {
+      enabled = false;
+      Brain.Dispose();
+      CollisionHandler.Dispose();
+      HitBox.enabled = false;
+      _pauseService.Unregister(this);
+      if (Movement != null)
+        Movement.Dispose();
+      if (AttackHandler != null)
+        AttackHandler.Dispose();
     }
 
     private IEnumerator MoveDownRoutine()
@@ -110,29 +151,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       Dispose();
     }
 
-    public void ApplyProperties(EnemyConfig config, ICharacterRegistry characterRegistry,
-      TransformContainer transformContainer)
-    {
-      BaseDamage = config.BaseDamage;
-      Health = new Health(config.MaxHealth);
-      AttackCooldown = config.MaxDistanceMovedByState / config.Speed;
-      MaxDistanceMovedByState = config.MaxDistanceMovedByState;
-      Speed = config.Speed;
-      _itemDropper = new ItemDropper(config.DroppedItems, characterRegistry, transformContainer);
-      Health.OnDead += DropItems;
-    }
-
     private void DropItems()
     {
       _itemDropper.DropItems(Position);
       _itemDropper.Dispose();
-    }
-
-    public void Dispose()
-    {
-      Health.OnDead -= Die;
-      Health.OnDead -= DropItems;
-      _characterRegistry.Hero.Health.OnDead -= OnHeroDead;
     }
   }
 }

@@ -18,10 +18,10 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     public float CooldownSec { get; private set; }
     private HeroConfig.DefaultAttackDirection _attackDirection;
     private IHeroAttackSystem _attackSystem;
-    private IVisualEffectPerformer _visualEffectPerformer;
     private float _currentTime;
     private HeroBehaviour _owner;
     private ITargetPicker _targetPicker;
+    private IVisualEffectPerformer _visualEffectPerformer;
 
     public void Update(float deltaTime)
     {

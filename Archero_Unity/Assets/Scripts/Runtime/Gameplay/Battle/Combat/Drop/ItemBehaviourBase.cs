@@ -35,6 +35,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
       _dropRoutine = StartCoroutine(SpawnRoutine(destination));
     }
 
+    protected abstract void GetPickedUp();
+
     private void MoveToPlayer()
     {
       _interactableObject.SetActive(true);
@@ -55,8 +57,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
         yield return null;
       }
     }
-
-    protected abstract void GetPickedUp();
 
     private IEnumerator SpawnRoutine(Vector3 destination)
     {

@@ -5,6 +5,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
@@ -40,16 +41,6 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     public void Initialize()
     {
       InitializeAsync();
-    }
-
-    private async UniTaskVoid InitializeAsync()
-    {
-      Container.Resolve<IVisualEffectPerformer>().Initialize();
-      await Container.Resolve<IParticlePrefabProvider>().LoadParticlePrefabsAsync();
-      await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectilesAsync();
-      await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectilesAsync();
-      await Container.Resolve<IAsyncLevelLoader>().LoadLevelAsync(_firstLevelProperties);
-      _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
     }
 
     public override void InstallBindings()
@@ -108,6 +99,21 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .Bind<IEnemyAttackHandlerBuilder>()
         .To<EnemyAttackHandlerBuilder>()
         .AsSingle();
+
+      Container
+        .Bind<IPauseService>()
+        .To<PauseService>()
+        .AsSingle();
+    }
+
+    private async UniTaskVoid InitializeAsync()
+    {
+      Container.Resolve<IVisualEffectPerformer>().Initialize();
+      await Container.Resolve<IParticlePrefabProvider>().LoadParticlePrefabsAsync();
+      await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectilesAsync();
+      await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectilesAsync();
+      await Container.Resolve<IAsyncLevelLoader>().LoadLevelAsync(_firstLevelProperties);
+      _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
     }
   }
 }

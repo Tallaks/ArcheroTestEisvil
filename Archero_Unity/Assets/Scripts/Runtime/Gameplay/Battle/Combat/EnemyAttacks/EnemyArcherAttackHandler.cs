@@ -6,9 +6,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 {
   public class EnemyArcherAttackHandler : EnemyAimedAttackHandler
   {
-    private EnemyArrowPool _arrowPool;
     private static EnemyArrowBehaviour _arrowPrefab;
     private static Transform _arrowContainer;
+    private EnemyArrowPool _arrowPool;
 
     public override EnemyAttackHandlerBase FinishInitialization()
     {
@@ -22,7 +22,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
     public override void Attack(Vector3 hero)
     {
       EnemyArrowBehaviour arrow = _arrowPool.Get();
+      PauseService.Register(arrow);
       arrow.ShootAt(hero);
+    }
+
+    public override void Dispose()
+    {
+      AimingDrawer.Dispose();
     }
 
     private static void DestroyArrow(EnemyArrowBehaviour arrow)
@@ -30,8 +36,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
       Destroy(arrow.gameObject);
     }
 
-    private static void ReleaseArrow(EnemyArrowBehaviour arrow)
+    private void ReleaseArrow(EnemyArrowBehaviour arrow)
     {
+      PauseService.Unregister(arrow);
       arrow.ReturnToPool();
     }
 
@@ -45,11 +52,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
     {
       EnemyArrowBehaviour newArrow = Instantiate(_arrowPrefab, Vector3.down, Quaternion.identity, _arrowContainer);
       return newArrow;
-    }
-
-    public override void Dispose()
-    {
-      AimingDrawer.Dispose();
     }
   }
 }

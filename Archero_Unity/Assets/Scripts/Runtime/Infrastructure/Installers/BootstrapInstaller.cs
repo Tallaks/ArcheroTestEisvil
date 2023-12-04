@@ -8,8 +8,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 {
   public class BootstrapInstaller : MonoInstaller, IInitializable
   {
-    private ISceneLoader _sceneLoader;
     private ICurtainService _curtainService;
+    private ISceneLoader _sceneLoader;
 
     [Inject]
     private void Construct(ISceneLoader sceneLoader, ICurtainService curtainService)

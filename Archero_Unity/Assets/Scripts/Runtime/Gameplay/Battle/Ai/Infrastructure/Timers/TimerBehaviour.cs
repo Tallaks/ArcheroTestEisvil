@@ -7,11 +7,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers
   {
     public string Name = "Timer";
     public TimerTypes Type;
+
+    [field: SerializeField] public float OverrideDuration { get; private set; } = -1f;
     public float Duration { get; private set; }
     public bool IsRunning { get; private set; }
     public bool IsTimeOut => _currentTime >= Duration;
-
-    [field: SerializeField] public float OverrideDuration { get; private set; } = -1f;
 
     private float _currentTime;
     private bool _isInitialized;

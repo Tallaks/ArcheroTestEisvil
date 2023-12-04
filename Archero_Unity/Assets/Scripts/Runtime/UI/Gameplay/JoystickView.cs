@@ -1,10 +1,11 @@
 using System.Collections;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay
 {
-  public class JoystickView : MonoBehaviour
+  public class JoystickView : MonoBehaviour, IPauseHandler
   {
     [SerializeField] private RectTransform _pointer;
     private Coroutine _coroutine;
@@ -23,11 +24,30 @@ namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay
     public void Initialize(IInputService inputService)
     {
       _inputService = inputService;
+      SetDefaultPositions();
+      inputService.OnMovementStarted += OnMovementStarted;
+      inputService.OnMovementEnded += OnMovementEnded;
+    }
+
+    public void OnPause()
+    {
+      StopAllCoroutines();
+      SetDefaultPositions();
+      _inputService.OnMovementStarted -= OnMovementStarted;
+      _inputService.OnMovementEnded -= OnMovementEnded;
+    }
+
+    public void OnResume()
+    {
+      _inputService.OnMovementStarted += OnMovementStarted;
+      _inputService.OnMovementEnded += OnMovementEnded;
+    }
+
+    private void SetDefaultPositions()
+    {
       _defaultPosition = transform.position;
       _maxPointerOffset = _pointer.anchoredPosition.magnitude;
       _pointer.anchoredPosition = Vector2.zero;
-      inputService.OnMovementStarted += OnMovementStarted;
-      inputService.OnMovementEnded += OnMovementEnded;
     }
 
     private void OnMovementEnded()

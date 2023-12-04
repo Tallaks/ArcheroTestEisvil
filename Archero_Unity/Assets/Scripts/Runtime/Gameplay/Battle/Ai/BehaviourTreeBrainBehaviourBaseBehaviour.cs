@@ -17,7 +17,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai
 
     public override void UpdateBehaviour(float deltaTime)
     {
-      BehaviourTree.RootNode.GetResult(deltaTime);
+      BehaviourTree.GetResult(deltaTime);
     }
 
     public override void Dispose()

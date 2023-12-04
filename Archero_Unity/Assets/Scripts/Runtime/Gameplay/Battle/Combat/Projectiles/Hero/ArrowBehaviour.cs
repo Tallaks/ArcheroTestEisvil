@@ -16,14 +16,16 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
 {
   public class ArrowBehaviour : HeroProjectileBehaviourBase
   {
+    private static bool _isPaused;
+    private readonly WaitUntil _waitFrameUnpaused = new(() => _isPaused == false);
     [SerializeField] private float _speed;
 
     private IHeroAttackSystem _attackSystem;
-    private IVisualEffectPerformer _visualEffectPerformer;
 
     private HeroBehaviour _owner;
     private HeroArrowPool _pool;
     private Coroutine _shootRoutine;
+    private IVisualEffectPerformer _visualEffectPerformer;
 
     public void Reinitialize(HeroBehaviour owner, HeroArrowPool pool, IHeroAttackSystem attackSystem,
       IVisualEffectPerformer visualEffectPerformer)
@@ -60,13 +62,25 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
         _pool.Release(this);
     }
 
+    public override void OnPause()
+    {
+      base.OnPause();
+      _isPaused = true;
+    }
+
+    public override void OnResume()
+    {
+      base.OnResume();
+      _isPaused = false;
+    }
+
     private IEnumerator ShootRoutine(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)
     {
       transform.LookAt(GetDirection(targetPosition, defaultAttackDirection), Vector3.up);
       while (true)
       {
         transform.position += transform.forward * (_speed * Time.deltaTime);
-        yield return null;
+        yield return _waitFrameUnpaused;
       }
     }
 

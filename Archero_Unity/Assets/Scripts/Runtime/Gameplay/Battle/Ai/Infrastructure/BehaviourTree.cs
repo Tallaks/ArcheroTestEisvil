@@ -33,6 +33,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure
       RootNode.Initialize(initializationParameters);
     }
 
+    public void GetResult(float deltaTime)
+    {
+      RootNode?.GetResult(deltaTime);
+    }
+
     public void Clear()
     {
       RootNode = null;

@@ -5,8 +5,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage
 {
   public class Health
   {
-    private readonly int _max;
-
     public event Action OnDead;
     public event Action<int, int> OnHealthChanged;
 
@@ -23,13 +21,13 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage
       }
     }
 
-    public int Max => _max;
+    public int Max { get; }
 
     private int _current;
 
     public Health(int max)
     {
-      _max = max;
+      Max = max;
       Current = max;
     }
   }

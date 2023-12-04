@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 {
-  public class HeroMovementBehaviour : MonoBehaviour, IDisposable
+  public class HeroMovementBehaviour : MonoBehaviour, IPauseHandler, IDisposable
   {
     [SerializeField] private float _speed;
     [SerializeField] private Rigidbody _characterController;
@@ -21,12 +22,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     }
 
     private Coroutine _aimRoutine;
+    private HeroBehaviour _heroBehaviour;
     private IInputService _inputService;
 
     private Coroutine _movementRoutine;
     private Vector2 _startPointerPosition;
     private ITargetPicker _targetPicker;
-    private HeroBehaviour _heroBehaviour;
 
     public void Initialize(HeroBehaviour heroBehaviour, IInputService inputService, ITargetPicker targetPicker)
     {
@@ -36,6 +37,33 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
       inputService.OnMovementStarted += OnMovementStarted;
       inputService.OnMovementEnded += OnMovementEnded;
       StartAiming();
+    }
+
+    public void Dispose()
+    {
+      StopAllCoroutines();
+      _inputService.OnMovementStarted -= OnMovementStarted;
+      _inputService.OnMovementEnded -= OnMovementEnded;
+      _aimRoutine = null;
+      _movementRoutine = null;
+      _characterController.velocity = Vector3.zero;
+      _characterController.angularVelocity = Vector3.zero;
+      StartCoroutine(DieRoutine());
+    }
+
+    public void OnPause()
+    {
+      StopAllCoroutines();
+      _movementRoutine = null;
+      _aimRoutine = null;
+      _inputService.OnMovementStarted -= OnMovementStarted;
+      _inputService.OnMovementEnded -= OnMovementEnded;
+    }
+
+    public void OnResume()
+    {
+      _inputService.OnMovementStarted += OnMovementStarted;
+      _inputService.OnMovementEnded += OnMovementEnded;
     }
 
     private void OnMovementEnded()
@@ -93,18 +121,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
         transform.rotation = Quaternion.AngleAxis(lookAngle, Vector3.up);
         yield return null;
       }
-    }
-
-    public void Dispose()
-    {
-      StopAllCoroutines();
-      _inputService.OnMovementStarted -= OnMovementStarted;
-      _inputService.OnMovementEnded -= OnMovementEnded;
-      _aimRoutine = null;
-      _movementRoutine = null;
-      _characterController.velocity = Vector3.zero;
-      _characterController.angularVelocity = Vector3.zero;
-      StartCoroutine(DieRoutine());
     }
 
     private IEnumerator DieRoutine()

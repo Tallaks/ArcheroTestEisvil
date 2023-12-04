@@ -6,6 +6,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks.Factory;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
@@ -20,14 +21,14 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
   {
     [SerializeField] private Transform _charactersParent;
     [SerializeField] private HeroSpawnPoint _heroSpawnPoint;
-
-    [Inject] private IInputService _inputService;
+    [Inject] private IBattleStarter _battleStarter;
     [Inject] private ICharacterRegistry _characterRegistry;
+    [Inject] private ICurtainService _curtainService;
+    [Inject] private IEnemyAttackHandlerBuilder _enemyAttackHandlerBuilder;
+    [Inject] private IInputService _inputService;
+    [Inject] private IPauseService _pauseService;
     [Inject] private ITargetPicker _targetPicker;
     [Inject] private IVisibilityService _visibilityService;
-    [Inject] private IBattleStarter _battleStarter;
-    [Inject] private IEnemyAttackHandlerBuilder _enemyAttackHandlerBuilder;
-    [Inject] private ICurtainService _curtainService;
 
 #if UNITY_EDITOR
     private void Awake()
@@ -51,10 +52,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
 
       _curtainService.Hide();
       await _battleStarter.WaitForBattleStart();
-      _targetPicker.Initialize();
-      InitializeHero(hero);
-      foreach (EnemyBehaviour enemy in _characterRegistry.Enemies)
-        enemy.Initialize(_characterRegistry, _visibilityService, _enemyAttackHandlerBuilder);
+
+      InitializeBattle(hero);
     }
 
     public override void InstallBindings()
@@ -86,9 +85,17 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .AsSingle();
     }
 
+    private void InitializeBattle(HeroBehaviour hero)
+    {
+      _targetPicker.Initialize();
+      InitializeHero(hero);
+      foreach (EnemyBehaviour enemy in _characterRegistry.Enemies)
+        enemy.Initialize(_characterRegistry, _pauseService, _visibilityService, _enemyAttackHandlerBuilder);
+    }
+
     private void InitializeHero(HeroBehaviour hero)
     {
-      hero.Initialize(_heroSpawnPoint.Config, _inputService, _targetPicker);
+      hero.Initialize(_heroSpawnPoint.Config, _inputService, _pauseService, _targetPicker);
       IHeroAttackHandler heroDefaultAttackHandler =
         Container.Resolve<HeroAttackHandlerFactory>().Create(_heroSpawnPoint.Config, hero);
       IDamageApplier defaultHeroDamageApplier =

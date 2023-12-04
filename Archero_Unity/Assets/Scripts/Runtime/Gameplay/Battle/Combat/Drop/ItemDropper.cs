@@ -26,6 +26,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
       CreateItems();
     }
 
+    public void Dispose()
+    {
+      _droppableItems.Clear();
+    }
+
     public void DropItems(Vector3 position)
     {
       foreach (ItemBehaviourBase item in _items)
@@ -45,11 +50,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop
           _items.Add(item);
         }
       }
-    }
-
-    public void Dispose()
-    {
-      _droppableItems.Clear();
     }
   }
 }

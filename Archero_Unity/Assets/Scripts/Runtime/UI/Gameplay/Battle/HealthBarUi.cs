@@ -10,18 +10,18 @@ namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay.Battle
 
     private IDamageable _damageableBehaviour;
 
+    private void OnDestroy()
+    {
+      _damageableBehaviour.Health.OnHealthChanged -= OnHealthChanged;
+      _damageableBehaviour.Health.OnDead -= OnDead;
+    }
+
     public void Initialize(IDamageable damageableBehaviour)
     {
       _damageableBehaviour = damageableBehaviour;
       _slider.value = (float)_damageableBehaviour.Health.Current / _damageableBehaviour.Health.Max;
       _damageableBehaviour.Health.OnHealthChanged += OnHealthChanged;
       _damageableBehaviour.Health.OnDead += OnDead;
-    }
-
-    private void OnDestroy()
-    {
-      _damageableBehaviour.Health.OnHealthChanged -= OnHealthChanged;
-      _damageableBehaviour.Health.OnDead -= OnDead;
     }
 
     private void OnDead()
