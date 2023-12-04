@@ -4,13 +4,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 {
   public class FlyingEnemyMovementBehaviour : EnemyMovementBehaviourBase
   {
-    [SerializeField] private CharacterController _characterController;
     private Coroutine _movingRoutine;
 
     public override void MoveTo(Vector3 position)
     {
       Vector3 direction = (position - transform.position).normalized;
-      _characterController.Move(direction * (Speed * Time.deltaTime));
+      Owner.Position += direction * Owner.Speed * Time.deltaTime;
     }
 
     public override void Stop()

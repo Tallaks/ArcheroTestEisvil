@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Extensions;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
@@ -6,10 +8,10 @@ using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 {
-  public class HeroMovementBehaviour : MonoBehaviour
+  public class HeroMovementBehaviour : MonoBehaviour, IDisposable
   {
     [SerializeField] private float _speed;
-    [SerializeField] private CharacterController _characterController;
+    [SerializeField] private Rigidbody _characterController;
     public bool IsMoving => _movementRoutine != null;
 
     public Quaternion Rotation
@@ -24,9 +26,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     private Coroutine _movementRoutine;
     private Vector2 _startPointerPosition;
     private ITargetPicker _targetPicker;
+    private HeroBehaviour _heroBehaviour;
 
-    public void Initialize(IInputService inputService, ITargetPicker targetPicker)
+    public void Initialize(HeroBehaviour heroBehaviour, IInputService inputService, ITargetPicker targetPicker)
     {
+      _heroBehaviour = heroBehaviour;
       _targetPicker = targetPicker;
       _inputService = inputService;
       inputService.OnMovementStarted += OnMovementStarted;
@@ -54,6 +58,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     {
       while (!IsMoving)
       {
+        _characterController.velocity = Vector3.zero;
         yield return null;
         Vector3 lookAtPoint = _targetPicker.GetClosestTargetPosition(_characterController.transform.position);
         if (lookAtPoint != Vector3.zero)
@@ -81,10 +86,34 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     {
       while (true)
       {
+        _characterController.velocity = Vector3.zero;
         Vector3 movementDirection = (_inputService.PointerPosition - _startPointerPosition).FromXYToXZ().normalized;
-        _characterController.Move(movementDirection * (_speed * Time.deltaTime));
+        _heroBehaviour.Position += movementDirection * (_speed * Time.deltaTime);
         float lookAngle = Quaternion.LookRotation(movementDirection, Vector3.up).eulerAngles.y;
         transform.rotation = Quaternion.AngleAxis(lookAngle, Vector3.up);
+        yield return null;
+      }
+    }
+
+    public void Dispose()
+    {
+      StopAllCoroutines();
+      _inputService.OnMovementStarted -= OnMovementStarted;
+      _inputService.OnMovementEnded -= OnMovementEnded;
+      _aimRoutine = null;
+      _movementRoutine = null;
+      _characterController.velocity = Vector3.zero;
+      _characterController.angularVelocity = Vector3.zero;
+      StartCoroutine(DieRoutine());
+    }
+
+    private IEnumerator DieRoutine()
+    {
+      var currentTime = 0f;
+      while (currentTime < 3f)
+      {
+        currentTime += Time.deltaTime;
+        _heroBehaviour.Position += Vector3.down * Time.deltaTime;
         yield return null;
       }
     }

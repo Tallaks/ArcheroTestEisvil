@@ -56,7 +56,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
     public override void PerformHit(Vector3 hitPosition)
     {
       _visualEffectPerformer.Play(ParticleType.DefaultProjectileHit, hitPosition);
-      _pool.Release(this);
+      if (_pool.CountActive != 0)
+        _pool.Release(this);
     }
 
     private IEnumerator ShootRoutine(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)

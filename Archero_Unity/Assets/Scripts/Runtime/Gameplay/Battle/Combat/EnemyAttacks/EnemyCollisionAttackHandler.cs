@@ -21,7 +21,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     private void OnTriggerEnter(Collider other)
     {
-      if (other.TryGetComponent(out IDamageable hero) && hero is HeroBehaviour)
+      if (other.TryGetComponent(out HitBox heroHitBox) && heroHitBox.Owner is HeroBehaviour hero)
       {
         _cancellationTokenSource = new CancellationTokenSource();
         ApplyDamageTo(hero, _cancellationTokenSource.Token);
@@ -32,7 +32,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
     {
       while (cancellationToken.IsCancellationRequested == false)
       {
-        Debug.Log($"Applying collision damage {Owner.BaseDamage} to {hero}");
         _damageApplier.ApplyDamage(hero.Health, Owner.BaseDamage);
         await UniTask.Delay(TimeSpan.FromSeconds(1));
       }
@@ -40,17 +39,22 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     private void OnTriggerExit(Collider other)
     {
-      if (other.TryGetComponent(out IDamageable hero) && hero is HeroBehaviour)
-      {
+      if (other.TryGetComponent(out HitBox heroHitBox) && heroHitBox.Owner is HeroBehaviour hero)
         _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource?.Dispose();
-      }
     }
 
     public override void Dispose()
     {
-      Destroy(this);
+      if (_cancellationTokenSource is
+          {
+            Token:
+            {
+              CanBeCanceled: true
+            }
+          })
+        _cancellationTokenSource.Cancel();
       _cancellationTokenSource?.Dispose();
+      Destroy(this);
     }
 
     // TODO: restructure this

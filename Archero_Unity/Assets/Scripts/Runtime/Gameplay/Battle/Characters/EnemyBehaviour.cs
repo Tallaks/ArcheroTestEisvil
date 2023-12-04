@@ -53,6 +53,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       _isInitialized = true;
       enabled = true;
       _characterRegistry = characterRegistry;
+      _characterRegistry.Hero.Health.OnDead += OnHeroDead;
       Health.OnDead += Die;
       HitBox.Initialize(this);
       enemyAttackHandlerBuilder.Build(this, CollisionHandler);
@@ -61,6 +62,18 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       if (AttackHandler != null)
         enemyAttackHandlerBuilder.Build(this, AttackHandler);
       Brain.Initialize(this, characterRegistry, visibilityService);
+    }
+
+    private void OnHeroDead()
+    {
+      enabled = false;
+      Brain.Dispose();
+      CollisionHandler.Dispose();
+      HitBox.enabled = false;
+      if (Movement != null)
+        Movement.Dispose();
+      if (AttackHandler != null)
+        AttackHandler.Dispose();
     }
 
     public override void Die()
@@ -115,6 +128,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     {
       Health.OnDead -= Die;
       Health.OnDead -= DropItems;
+      _characterRegistry.Hero.Health.OnDead -= OnHeroDead;
     }
   }
 }

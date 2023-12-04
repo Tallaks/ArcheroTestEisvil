@@ -22,6 +22,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     {
       _characterRegistry = characterRegistry;
       characterRegistry.OnAllEnemiesDead += Dispose;
+      characterRegistry.Hero.Health.OnDead += Dispose;
     }
 
     public async UniTaskVoid StartWorking()
@@ -52,12 +53,11 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     public void Dispose()
     {
-      _cancellationTokenSource?.Cancel();
-      _cancellationTokenSource?.Dispose();
+      _cooldownAttackHandlers.Clear();
       for (var i = 0; i < _allAttackHandlers.Count; i++)
         _allAttackHandlers[i].Dispose();
       _allAttackHandlers.Clear();
-      _cooldownAttackHandlers.Clear();
+      _cancellationTokenSource?.Cancel();
       _damageAppliers.Clear();
       _characterRegistry.OnAllEnemiesDead -= Dispose;
     }
