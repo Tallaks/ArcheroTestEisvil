@@ -42,7 +42,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
         EnemyBehaviour enemy = _allEnemies[i];
         if (!_visibilityService.EnemyIsVisibleByHero(_characterRegistry.Hero, enemy) || enemy.IsDead)
           continue;
-        _visibleEnemies[i] = enemy;
+        _visibleEnemies[visibleEnemiesCount] = enemy;
         visibleEnemiesCount++;
       }
 
