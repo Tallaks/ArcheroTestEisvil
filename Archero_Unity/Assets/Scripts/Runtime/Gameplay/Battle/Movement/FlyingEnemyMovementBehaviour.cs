@@ -9,7 +9,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     public override void MoveTo(Vector3 position)
     {
       Vector3 direction = (position - transform.position).normalized;
-      Owner.Position += direction * Owner.Speed * Time.deltaTime;
+      Owner.Position += direction * (Owner.Speed * Time.deltaTime);
     }
 
     public override void Stop()

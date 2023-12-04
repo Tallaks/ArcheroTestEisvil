@@ -9,6 +9,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs;
+using Tallaks.ArcheroTest.Runtime.UI.Gameplay.Battle;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
@@ -20,6 +21,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     [field: SerializeField] public EnemyAttackHandlerBase AttackHandler { get; private set; }
     [field: SerializeField] public EnemyCollisionAttackHandler CollisionHandler { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
+    [field: SerializeField] private HealthBarUi HpBar { get; set; }
     public int BaseDamage { get; private set; }
     public float MaxDistanceMovedByState { get; private set; }
     public float Speed { get; protected set; }
@@ -59,6 +61,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       enemyAttackHandlerBuilder.Build(this, CollisionHandler);
       if (Movement != null)
         Movement.Initialize(this);
+      if (HpBar != null)
+        HpBar.Initialize(this);
       if (AttackHandler != null)
         enemyAttackHandlerBuilder.Build(this, AttackHandler);
       Brain.Initialize(this, characterRegistry, visibilityService);

@@ -16,12 +16,14 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage
       set
       {
         int old = _current;
-        _current = Mathf.Clamp(value, 0, _max);
+        _current = Mathf.Clamp(value, 0, Max);
         OnHealthChanged?.Invoke(_current, old);
         if (_current == 0)
           OnDead?.Invoke();
       }
     }
+
+    public int Max => _max;
 
     private int _current;
 

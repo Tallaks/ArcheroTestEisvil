@@ -15,6 +15,12 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
       _navMeshAgent.updateRotation = false;
     }
 
+    private void Update()
+    {
+      Owner.Position = transform.position;
+      transform.localPosition = Vector3.zero;
+    }
+
     public override void MoveTo(Vector3 position)
     {
       if (_navMeshAgent.isStopped)
@@ -24,6 +30,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 
     public override void Dispose()
     {
+      enabled = false;
       _navMeshAgent.enabled = false;
     }
 
