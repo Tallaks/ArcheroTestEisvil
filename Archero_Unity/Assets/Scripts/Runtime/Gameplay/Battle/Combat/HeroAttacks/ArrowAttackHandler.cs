@@ -66,6 +66,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
     public void Dispose()
     {
       _heroArrowPool?.Dispose();
+      _heroArrowPool = null;
+      _arrowPrefab = null;
+      _arrowContainer = null;
     }
 
     private static void ReleaseArrow(ArrowBehaviour arrow)
@@ -88,7 +91,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks
 
     private static void DestroyArrow(ArrowBehaviour obj)
     {
-      Object.Destroy(obj.gameObject);
+      if (obj != null && obj.gameObject != null)
+        Object.Destroy(obj.gameObject);
     }
   }
 }

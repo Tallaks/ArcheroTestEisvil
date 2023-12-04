@@ -1,4 +1,5 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes;
 using UnityEngine;
 
 namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay.Pause
@@ -14,10 +15,11 @@ namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay.Pause
       _pauseService.Unregister(this);
     }
 
-    public void Initialize(IPauseService pauseService)
+    public void Initialize(ISceneLoader sceneLoader, ICurtainService curtainService, IPauseService pauseService)
     {
       _pauseService = pauseService;
       _pauseButton.Initialize(pauseService);
+      _pauseMenu.Initialize(sceneLoader, curtainService);
       pauseService.Register(this);
     }
 

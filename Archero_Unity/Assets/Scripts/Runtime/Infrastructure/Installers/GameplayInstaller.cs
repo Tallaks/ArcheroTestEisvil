@@ -1,12 +1,8 @@
 using System.Linq;
 using Cysharp.Threading.Tasks;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factory;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.HeroAttacks;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
-using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
@@ -22,12 +18,16 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     [SerializeField] private LevelProperties _firstLevelProperties;
     [SerializeField] private TransformContainer _transformContainer;
     [SerializeField] private GameplayUi _gameplayUi;
+    private ICurtainService _curtainService;
     private IInputService _inputService;
+    private ISceneLoader _sceneLoader;
 
     [Inject]
-    private void Construct(IInputService inputService)
+    private void Construct(IInputService inputService, ISceneLoader sceneLoader, ICurtainService curtainService)
     {
       _inputService = inputService;
+      _sceneLoader = sceneLoader;
+      _curtainService = curtainService;
     }
 
 #if UNITY_EDITOR
@@ -56,23 +56,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .AsSingle();
 
       Container
-        .Bind<ICharacterRegistry>()
-        .To<CharacterRegistry>()
-        .AsSingle();
-
-      Container
-        .Bind<IVisibilityService>()
-        .To<VisibilityService>()
-        .AsSingle();
-
-      Container
         .Bind<IGameplayPrefabProvider>()
         .To<GameplayPrefabProvider>()
-        .AsSingle();
-
-      Container
-        .Bind<ITargetPicker>()
-        .To<HeroTargetPicker>()
         .AsSingle();
 
       Container
@@ -96,11 +81,6 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .AsSingle();
 
       Container
-        .Bind<IEnemyAttackHandlerBuilder>()
-        .To<EnemyAttackHandlerBuilder>()
-        .AsSingle();
-
-      Container
         .Bind<IPauseService>()
         .To<PauseService>()
         .AsSingle();
@@ -113,7 +93,9 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectilesAsync();
       await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectilesAsync();
       await Container.Resolve<IAsyncLevelLoader>().LoadLevelAsync(_firstLevelProperties);
-      _gameplayUi.Initialize(_inputService, Container.Resolve<IPauseService>(), Container.Resolve<IBattleStarter>());
+      var pauseService = Container.Resolve<IPauseService>();
+      var battleStarter = Container.Resolve<IBattleStarter>();
+      _gameplayUi.Initialize(_inputService, _sceneLoader, _curtainService, pauseService, battleStarter);
     }
   }
 }
