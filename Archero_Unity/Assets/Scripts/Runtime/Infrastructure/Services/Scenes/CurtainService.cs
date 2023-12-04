@@ -22,7 +22,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes
 
     public void Hide()
     {
-      _splashScreen.Hide();
+      if (_splashScreen != null)
+        _splashScreen.Hide();
     }
   }
 }

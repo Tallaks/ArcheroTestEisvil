@@ -113,7 +113,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
       await Container.Resolve<IGameplayPrefabProvider>().LoadHeroProjectilesAsync();
       await Container.Resolve<IGameplayPrefabProvider>().LoadEnemyProjectilesAsync();
       await Container.Resolve<IAsyncLevelLoader>().LoadLevelAsync(_firstLevelProperties);
-      _gameplayUi.Initialize(_inputService, Container.Resolve<IBattleStarter>());
+      _gameplayUi.Initialize(_inputService, Container.Resolve<IPauseService>(), Container.Resolve<IBattleStarter>());
     }
   }
 }

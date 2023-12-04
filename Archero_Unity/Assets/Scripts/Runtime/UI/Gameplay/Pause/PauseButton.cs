@@ -1,18 +1,19 @@
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Pause;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
-namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay.Battle
+namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay.Pause
 {
   public class PauseButton : MonoBehaviour
   {
     [SerializeField] private Button _button;
-    private bool _isPaused;
-    [Inject] private IPauseService _pauseService;
 
-    private void Awake()
+    private bool _isPaused;
+    private IPauseService _pauseService;
+
+    public void Initialize(IPauseService pauseService)
     {
+      _pauseService = pauseService;
       _button.onClick.AddListener(OnPauseButtonClicked);
     }
 

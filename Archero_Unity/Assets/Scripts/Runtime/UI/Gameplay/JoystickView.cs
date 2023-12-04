@@ -13,16 +13,20 @@ namespace Tallaks.ArcheroTest.Runtime.UI.Gameplay
 
     private IInputService _inputService;
     private float _maxPointerOffset;
+    private IPauseService _pauseService;
     private Vector2 _positionOnStartMove;
 
     private void OnDestroy()
     {
+      _pauseService.Unregister(this);
       _inputService.OnMovementStarted -= OnMovementStarted;
       _inputService.OnMovementEnded -= OnMovementEnded;
     }
 
-    public void Initialize(IInputService inputService)
+    public void Initialize(IInputService inputService, IPauseService pauseService)
     {
+      _pauseService = pauseService;
+      _pauseService.Register(this);
       _inputService = inputService;
       SetDefaultPositions();
       inputService.OnMovementStarted += OnMovementStarted;
