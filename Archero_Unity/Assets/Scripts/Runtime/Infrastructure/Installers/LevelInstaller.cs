@@ -10,6 +10,7 @@ using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.Factories;
 using Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Visibility;
 using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Inputs;
+using Tallaks.ArcheroTest.Runtime.Infrastructure.Services.Scenes;
 using UnityEngine;
 using Zenject;
 
@@ -20,25 +21,13 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
     [SerializeField] private Transform _charactersParent;
     [SerializeField] private HeroSpawnPoint _heroSpawnPoint;
 
-    private ICharacterRegistry _characterRegistry;
-    private ITargetPicker _targetPicker;
-    private IInputService _inputService;
-    private IVisibilityService _visibilityService;
-    private IBattleStarter _battleStarter;
-    private IEnemyAttackHandlerBuilder _enemyAttackHandlerBuilder;
-
-    [Inject]
-    private void Construct(IInputService inputService, ITargetPicker targetPicker, ICharacterRegistry characterRegistry,
-      IVisibilityService visibilityService,
-      IBattleStarter battleStarter, IEnemyAttackHandlerBuilder enemyAttackHandlerBuilder)
-    {
-      _inputService = inputService;
-      _targetPicker = targetPicker;
-      _characterRegistry = characterRegistry;
-      _visibilityService = visibilityService;
-      _battleStarter = battleStarter;
-      _enemyAttackHandlerBuilder = enemyAttackHandlerBuilder;
-    }
+    [Inject] private IInputService _inputService;
+    [Inject] private ICharacterRegistry _characterRegistry;
+    [Inject] private ITargetPicker _targetPicker;
+    [Inject] private IVisibilityService _visibilityService;
+    [Inject] private IBattleStarter _battleStarter;
+    [Inject] private IEnemyAttackHandlerBuilder _enemyAttackHandlerBuilder;
+    [Inject] private ICurtainService _curtainService;
 
 #if UNITY_EDITOR
     private void Awake()
@@ -60,6 +49,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         _characterRegistry.RegisterEnemy(enemy);
       }
 
+      _curtainService.Hide();
       await _battleStarter.WaitForBattleStart();
       _targetPicker.Initialize();
       InitializeHero(hero);

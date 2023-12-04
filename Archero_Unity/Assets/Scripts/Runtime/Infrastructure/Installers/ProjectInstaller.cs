@@ -20,6 +20,11 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
         .Bind<IInputService>()
         .FromInstance(_inputService)
         .AsSingle();
+
+      Container
+        .Bind<ICurtainService>()
+        .To<CurtainService>()
+        .AsSingle();
     }
   }
 }

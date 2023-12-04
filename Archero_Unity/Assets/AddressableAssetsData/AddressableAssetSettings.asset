@@ -45,6 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8166cd291960c874a88a04f45721514c, type: 2}
   - {fileID: 11400000, guid: 9cca4432a9f8d294294416b2f24317e4, type: 2}
   - {fileID: 11400000, guid: 11f88346f98e2594eb949f2ae99e8fb3, type: 2}
+  - {fileID: 11400000, guid: 979b411f12674fc4b85fb2918dff3cde, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -91,6 +92,8 @@ MonoBehaviour:
     - Gameplay
     - Enemy
     - Particle
+    - UI
+    - Infrastructure
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 6865ef7d9c9e34e45964c143fc4bd569, type: 2}

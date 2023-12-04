@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: VX
+  m_Name: UI
   m_EditorClassIdentifier: 
-  m_GroupName: VX
+  m_GroupName: UI
   m_Data:
     m_SerializedData: []
-  m_GUID: 45a32c8aae64aee4ab69a3d35abd5de9
+  m_GUID: 2682811980dd8aa40906ea958f9e081a
   m_SerializeEntries:
-  - m_GUID: f5507a8c6a22c404ab324980c4e8a11b
-    m_Address: Hit
+  - m_GUID: 9203d634edc25304db6eb3c51e7514f6
+    m_Address: SplashScreen
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Particles
-    - Gameplay
-    - Particle
+    - UI
+    - Infrastructure
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 56ffb237c72da4f4f92ec4014ebd822e, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 53b915c19133d5f4f85e023b1bf4d1fd, type: 2}
-    - {fileID: 11400000, guid: d6facfaffdd5d8f48bd2bba7417ccb3c, type: 2}
+    - {fileID: 11400000, guid: 53e1cf1fa5ae5f348bdd65195b94b7f4, type: 2}
+    - {fileID: 11400000, guid: f60947f6d15f1e345b21f567affb8ec9, type: 2}

@@ -9,23 +9,27 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Installers
   public class BootstrapInstaller : MonoInstaller, IInitializable
   {
     private ISceneLoader _sceneLoader;
+    private ICurtainService _curtainService;
 
     [Inject]
-    private void Construct(ISceneLoader sceneLoader)
+    private void Construct(ISceneLoader sceneLoader, ICurtainService curtainService)
     {
       _sceneLoader = sceneLoader;
+      _curtainService = curtainService;
     }
 
 #if UNITY_EDITOR
-    private void Awake()
+    private async void Awake()
     {
       Debug.Assert(GetComponent<SceneContext>().Installers.Contains(this),
         $"Forgot to add installer {name} to SceneContext");
     }
 #endif
 
-    public void Initialize()
+    public async void Initialize()
     {
+      await _curtainService.InitializeAsync();
+      _curtainService.Show();
       _sceneLoader.LoadScene(SceneNames.Gameplay);
     }
 
