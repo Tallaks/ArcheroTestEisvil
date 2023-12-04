@@ -26,6 +26,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.Factor
       {
         case EnemyArcherAttackHandler archerAttackHandler:
           return BuildArcherAttackHandler(archerAttackHandler).FinishInitialization();
+        case EnemyCollisionAttackHandler collisionAttackHandler:
+          return collisionAttackHandler.FinishInitialization();
       }
 
       return null;

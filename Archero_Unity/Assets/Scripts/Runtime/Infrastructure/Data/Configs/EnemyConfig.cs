@@ -10,6 +10,8 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs
     public string Id;
     public string Name;
     public EnemyBehaviour Prefab;
+    public float MaxDistanceMovedByState;
+    public float Speed;
     public int MaxHealth;
     public int BaseDamage;
     public DroppableItems[] DroppedItems;

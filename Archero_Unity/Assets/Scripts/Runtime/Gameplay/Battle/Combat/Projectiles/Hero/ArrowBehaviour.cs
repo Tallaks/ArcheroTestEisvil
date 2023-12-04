@@ -61,7 +61,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero
 
     private IEnumerator ShootRoutine(Vector3 targetPosition, HeroConfig.DefaultAttackDirection defaultAttackDirection)
     {
-      transform.LookAt(GetDirection(targetPosition, defaultAttackDirection));
+      transform.LookAt(GetDirection(targetPosition, defaultAttackDirection), Vector3.up);
       while (true)
       {
         transform.position += transform.forward * (_speed * Time.deltaTime);

@@ -21,6 +21,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     [field: SerializeField] public EnemyCollisionAttackHandler CollisionHandler { get; private set; }
     [field: SerializeField] public HitBox HitBox { get; private set; }
     public int BaseDamage { get; private set; }
+    public float MaxDistanceMovedByState { get; private set; }
+    public float Speed { get; protected set; }
     private ItemDropper _itemDropper;
 
     public Vector3 Position
@@ -29,6 +31,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
       set => transform.position = value;
     }
 
+    public float AttackCooldown { get; private set; }
     private ICharacterRegistry _characterRegistry;
     private bool _isInitialized;
 
@@ -95,6 +98,9 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     {
       BaseDamage = config.BaseDamage;
       Health = new Health(config.MaxHealth);
+      AttackCooldown = config.MaxDistanceMovedByState / config.Speed;
+      MaxDistanceMovedByState = config.MaxDistanceMovedByState;
+      Speed = config.Speed;
       _itemDropper = new ItemDropper(config.DroppedItems, characterRegistry, transformContainer);
       Health.OnDead += DropItems;
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2737395226507653829}
   - component: {fileID: 7733026287962796741}
   - component: {fileID: 3124331662598451909}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1004462330211185349}
   - component: {fileID: 6804349226745115333}
   - component: {fileID: 6804349226745115332}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: EnemyArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

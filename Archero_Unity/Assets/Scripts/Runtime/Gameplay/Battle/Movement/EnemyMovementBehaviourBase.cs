@@ -6,13 +6,16 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
 {
   public abstract class EnemyMovementBehaviourBase : MonoBehaviour, IDisposable
   {
-    [field: SerializeField] public float MaxDistanceMovedByState { get; private set; }
-    [field: SerializeField] public float Speed { get; protected set; }
+    public float MaxDistanceMovedByState { get; private set; }
+    public float Speed { get; protected set; }
+
     protected EnemyBehaviour Owner;
 
     public virtual void Initialize(EnemyBehaviour enemyBehaviour)
     {
       Owner = enemyBehaviour;
+      MaxDistanceMovedByState = Owner.MaxDistanceMovedByState;
+      Speed = Owner.Speed;
     }
 
     public abstract void Dispose();

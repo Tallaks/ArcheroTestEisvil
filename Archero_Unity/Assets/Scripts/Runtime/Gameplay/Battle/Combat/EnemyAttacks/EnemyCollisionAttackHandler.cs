@@ -11,7 +11,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
   public class EnemyCollisionAttackHandler : EnemyAttackHandlerBase
   {
     private ValueDamageApplier _damageApplier;
-    private EnemyBehaviour _owner;
     private CancellationTokenSource _cancellationTokenSource;
 
     public override EnemyAttackHandlerBase FinishInitialization()
@@ -33,7 +32,8 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
     {
       while (cancellationToken.IsCancellationRequested == false)
       {
-        _damageApplier.ApplyDamage(hero.Health, _owner.BaseDamage);
+        Debug.Log($"Applying collision damage {Owner.BaseDamage} to {hero}");
+        _damageApplier.ApplyDamage(hero.Health, Owner.BaseDamage);
         await UniTask.Delay(TimeSpan.FromSeconds(1));
       }
     }
@@ -49,7 +49,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks
 
     public override void Dispose()
     {
-      gameObject.SetActive(false);
+      Destroy(this);
       _cancellationTokenSource?.Dispose();
     }
 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1548790086578561045}
   - component: {fileID: 1548790086578561046}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Interactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 1548790086784420592}
   - component: {fileID: 1548790086784420595}
   - component: {fileID: 1548790086784420596}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GoldCoin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

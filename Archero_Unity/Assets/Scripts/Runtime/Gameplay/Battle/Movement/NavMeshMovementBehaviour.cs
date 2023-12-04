@@ -12,6 +12,7 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement
     {
       base.Initialize(enemyBehaviour);
       _navMeshAgent.speed = Speed;
+      _navMeshAgent.updateRotation = false;
     }
 
     public override void MoveTo(Vector3 position)

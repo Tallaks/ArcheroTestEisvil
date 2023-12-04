@@ -8,16 +8,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Hero
+  - Obstacle
   - Water
   - UI
-  - Obstacle
-  - Enemy
   - Projectile
   - Item
-  - 
-  - 
-  - 
+  - Hitbox
+  - Enemy
+  - Hero
+  - Borders
+  - FlyingEnemy
   - 
   - 
   - 

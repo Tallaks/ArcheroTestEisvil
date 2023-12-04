@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6405528257166670160}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6405528257950334886}
   - component: {fileID: 8345470807509649966}
   - component: {fileID: 4031321635695041374}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6405528257997436612}
   - component: {fileID: 6405528257997436613}
-  m_Layer: 7
+  - component: {fileID: 1767464296471023611}
+  - component: {fileID: 7532189580455798437}
+  m_Layer: 9
   m_Name: Enemy_Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +126,6 @@ Transform:
   - {fileID: 6405528257166670160}
   - {fileID: 6405528257950334886}
   - {fileID: 770000140385238865}
-  - {fileID: 5836760360114269164}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -143,62 +144,33 @@ MonoBehaviour:
   <Movement>k__BackingField: {fileID: 0}
   <Brain>k__BackingField: {fileID: 0}
   <AttackHandler>k__BackingField: {fileID: 0}
-  <CollisionHandler>k__BackingField: {fileID: 7341999379500821490}
+  <CollisionHandler>k__BackingField: {fileID: 7532189580455798437}
   <HitBox>k__BackingField: {fileID: 4031321635695041374}
---- !u!1 &8358509479635412208
-GameObject:
+--- !u!143 &1767464296471023611
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5836760360114269164}
-  - component: {fileID: 7108378637188653831}
-  - component: {fileID: 7341999379500821490}
-  m_Layer: 2
-  m_Name: CollisionDamager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5836760360114269164
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358509479635412208}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6405528257997436612}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &7108378637188653831
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358509479635412208}
+  m_GameObject: {fileID: 6405528257997436615}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
   m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7341999379500821490
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7532189580455798437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8358509479635412208}
+  m_GameObject: {fileID: 6405528257997436615}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42edbdc6476b42089913312cf81ee292, type: 3}
@@ -213,7 +185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 770000140385238865}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: AttackHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}

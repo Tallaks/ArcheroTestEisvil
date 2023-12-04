@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6817257916634302738}
   - component: {fileID: 6817257916634302739}
   - component: {fileID: 4656848556162701116}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: HeroArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 6817257917408192186}
   - component: {fileID: 6817257917408192181}
   - component: {fileID: 6817257917408192180}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

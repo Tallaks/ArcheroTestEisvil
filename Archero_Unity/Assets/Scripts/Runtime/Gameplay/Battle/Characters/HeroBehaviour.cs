@@ -14,7 +14,6 @@ namespace Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters
     public float BaseCooldownSec { get; private set; }
     public int BaseDamage { get; private set; }
     public Vector3 Position => transform.position;
-    public Quaternion Rotation => Movement.Rotation;
     public bool IsMoving => Movement.IsMoving;
 
     public void Initialize(HeroConfig config, IInputService inputService, ITargetPicker targetPicker)
