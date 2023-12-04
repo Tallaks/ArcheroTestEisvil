@@ -1,0 +1,158 @@
+<linker>
+  <assembly fullname="DamageNumbersPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="DamageNumbersPro.DamageNumberMesh" preserve="all" />
+    <type fullname="DamageNumbersPro.CollisionSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.ColorByNumberSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.CombinationMethod" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.CombinationSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.DestructionSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.DigitSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.DistanceScalingSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.FollowSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.LerpSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.PushSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.ScaleByNumberSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.ShakeSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.TextSettings" preserve="nothing" serialized="true" />
+    <type fullname="DamageNumbersPro.VelocitySettings" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.BehaviourTreeBrainBehaviourBaseBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.BehaviourTree" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Timers.TimerBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters.EnemyBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Characters.HeroBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Aiming.LineRendererAimingDrawerBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Damage.HitBox" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop.GoldCoinBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Drop.ItemPicker" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.EnemyArcherAttackHandler" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.EnemyAttacks.EnemyCollisionAttackHandler" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Enemies.EnemyArrowBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.Hero.ArrowBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Combat.Projectiles.ObstacleBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.FX.ParticleBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement.FlyingEnemyMovementBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement.HeroMovementBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Movement.NavMeshMovementBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.EnemySpawnPoint" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Spawn.HeroSpawnPoint" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs.EnemyConfig" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs.HeroConfig" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Infrastructure.Installers.LevelInstaller" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.UI.Gameplay.Battle.HealthBarUi" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.UI.Infrastructure.SplashScreenUiBehaviour" preserve="all" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites.AllNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Composites.AnyNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators.NotNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Decorators.RootNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero.AimAtHeroNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero.AttackHeroNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero.HeroIsVisibleNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Hero.StopAimingNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.LookAtHeroNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.LookAtPositionNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.MovementToHeroNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.MovementToWaypointNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.SetWaypointAtHeroPositionNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Movement.WaitNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer.ResetTimerNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer.StartTimerNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer.TimeOutNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer.TimerIsRunningNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Gameplay.Battle.Ai.Infrastructure.Nodes.Timer.UpdateTimerNode" preserve="nothing" serialized="true" />
+    <type fullname="Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Configs.DroppableItems" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalLightData" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="TMPro.TextMeshPro" preserve="all" />
+    <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
+    <type fullname="TMPro.TMP_FontAsset" preserve="all" />
+    <type fullname="TMPro.FaceInfo_Legacy" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.FontAssetCreationSettings" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.KerningTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_Character" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontFeatureTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontWeightPair" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_GlyphAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_GlyphPairAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_GlyphValueRecord" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
+    <type fullname="UnityEngine.AI.NavMeshData" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Cubemap" preserve="all" />
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Light" preserve="all" />
+    <type fullname="UnityEngine.LightmapSettings" preserve="all" />
+    <type fullname="UnityEngine.LineRenderer" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.Rendering.SortingGroup" preserve="all" />
+    <type fullname="UnityEngine.RenderSettings" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.UnityEvent" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystemRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.BoxCollider" preserve="all" />
+    <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
+    <type fullname="UnityEngine.Rigidbody" preserve="all" />
+    <type fullname="UnityEngine.SphereCollider" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Font" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.UI.CanvasScaler" preserve="all" />
+    <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
+    <type fullname="UnityEngine.UI.Image" preserve="all" />
+    <type fullname="UnityEngine.UI.Slider" preserve="all" />
+    <type fullname="UnityEngine.UI.AnimationTriggers" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.ColorBlock" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.MaskableGraphic/CullStateChangedEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Navigation" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.Slider/SliderEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.UI.SpriteState" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Canvas" preserve="all" />
+    <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="Zenject, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Zenject.SceneContext" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextCoreFontEngineModule">
+    <type fullname="UnityEngine.TextCore.FaceInfo" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.Glyph" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphMetrics" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphRect" preserve="nothing" serialized="true" />
+  </assembly>
+</linker>

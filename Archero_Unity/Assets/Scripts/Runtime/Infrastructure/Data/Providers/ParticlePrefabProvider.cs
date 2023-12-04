@@ -10,7 +10,7 @@ namespace Tallaks.ArcheroTest.Runtime.Infrastructure.Data.Providers
 {
   public class ParticlePrefabProvider : IParticlePrefabProvider
   {
-    private readonly string[] _particles = { "Particles", "Gameplay" };
+    private readonly string[] _particles = { "Particle", "Gameplay" };
     private Dictionary<ParticleType, ParticleBehaviour> _prefabsByType;
 
     public async UniTask LoadParticlePrefabsAsync()
